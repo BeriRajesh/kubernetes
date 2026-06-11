@@ -1,0 +1,154 @@
+name: Trigger Azure DevOps Pipeline
+
+on:
+  push:
+    branches:
+      - develop
+      - qa
+      - stg
+      - prod
+
+jobs:
+  trigger-pipeline:
+    runs-on: codebuild-github-runner-${{ github.run_id }}-${{ github.run_attempt }}
+    environment: ${{ contains(fromJson('["develop", "qa", "stg", "prod"]'),  github.ref_name) && github.ref_name || 'develop' }}
+    permissions:
+      id-token: write
+      contents: write
+    env:
+      BUILD_ENV: ${{ vars.BUILD_ENV }}
+      env: ${{ vars.BUILD_ENV }}
+
+    steps:
+    
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Azure CLI
+        run: |
+          echo "📦 Installing Azure CLI..."
+          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+          az --version
+
+      - name: Install Azure CLI & DevOps extension
+        run: |
+          az extension add -n azure-devops
+
+      - name: Login to Azure DevOps
+        run: |
+          echo "${{ secrets.AZURE_DEVOPS_TOKEN }}" | az devops login --organization "${{ secrets.ORGANISATION }}"annalectus
+
+      - name: Trigger Azure DevOps pipeline
+        id: trigger
+        run: |
+          ORG="${{ secrets.ORGANISATION }}"annalectus
+          PROJECT="${{ secrets.PROJECT }}"
+          DEFINITION="${{ secrets.DEFINATION_NAME }}"
+          BRANCH="${{ vars.BUILD_ENV }}"
+
+          echo "Queuing build for branch $BRANCH"
+          buildId=$(az pipelines build queue \
+            --branch "$BRANCH" \
+            --org $ORG \
+            --project $PROJECT \
+            --definition-name $DEFINITION \
+            --variables \
+              VAULT_KEY_NAME=${{ secrets.VAULT_KEY_NAME }} \
+              VAULT_KEY_SECRET=${{ secrets.VAULT_KEY_SECRET }} \
+              CONFIG_PATH=${{ secrets.CONFIG_PATH }} \
+              BACKEND_CAPP=${{ secrets.BACKEND_CAPP }} \
+              DESIGNER_CAPP=${{ secrets.DESIGNER_CAPP }} \
+              PORTAL_CAPP=${{ secrets.PORTAL_CAPP }} \
+              SUBSCRIPTION=${{ secrets.SUBSCRIPTION }} \
+              RESOURCE_GROUP=${{ secrets.RESOURCE_GROUP }} \
+              ACR=${{ secrets.ACR }} \
+              SQL_DB=${{ secrets.SQL_DB }} \
+              SQL_SERVER=${{ secrets.SQL_SERVER }} \
+              SQLSERVER-ADMINISTRATOR-LOGIN=${{ secrets.SQLSERVER_ADMINISTRATOR_LOGIN }} \
+              SQLSERVER-ADMINISTRATOR-LOGIN-PASSWORD=${{ secrets.SQLSERVER_ADMINISTRATOR_LOGIN_PASSWORD}} \
+              KEY_VAULT=${{ secrets.KEY_VAULT }} \
+            --only-show-errors \
+            --query id -o tsv)
+
+          echo "BuildId=$buildId" >> $GITHUB_ENV
+          echo "Triggered build ID: $buildId"
+
+      - name: flowchart builder logs
+        run: |
+          ORG="https://dev.azure.com/annalectus"
+          PROJECT="flowchart-builder"
+          TOKEN="${{ secrets.AZURE_DEVOPS_TOKEN }}"
+          buildId=${{ env.BuildId }}
+
+          declare -A NEXT_LINE
+          declare -A HEADER_STATE
+
+          print_log_lines() {
+            local logId="$1"
+            local jobName="$2"
+            local stepName="$3"
+            local state="$4"
+
+            # Open header once
+            if [[ "${HEADER_STATE[$logId]:-}" != "open" && "${HEADER_STATE[$logId]:-}" != "closed" ]]; then
+              echo ""
+              echo "============================================================"
+              echo "JOB: $jobName"
+              echo "STEP: $stepName"
+              echo "============================================================"
+              echo "::group::[$jobName] $stepName"
+              HEADER_STATE[$logId]="open"
+            fi
+
+            local start="${NEXT_LINE[$logId]:-1}"
+            local url="$ORG/$PROJECT/_apis/build/builds/$buildId/logs/$logId?startLine=$start&api-version=7.1"
+
+            local content
+            content=$(curl -sS -u ":$TOKEN" "$url") || return
+
+            if [[ -n "$content" ]]; then
+              while IFS= read -r line; do
+                printf "[%s] [%s | %s] %s\n" "$(date +'%H:%M:%S')" "$jobName" "$stepName" "$line"
+              done <<< "$content"
+
+              local lines
+              lines=$(printf "%s" "$content" | wc -l | awk '{print $1}')
+              if [[ "$lines" -gt 0 ]]; then
+                NEXT_LINE[$logId]=$((start + lines))
+              fi
+            fi
+
+            if [[ "$state" == "completed" && "${HEADER_STATE[$logId]}" == "open" ]]; then
+              echo "::endgroup::"
+              HEADER_STATE[$logId]="closed"
+              echo ""
+            fi
+          }
+
+          echo "Fetching logs for build $buildId"
+          status=$(az pipelines build show --id $buildId --org $ORG --project $PROJECT --query status -o tsv)
+
+          while [ "$status" != "completed" ]; do
+            timeline=$(curl -s -u ":$TOKEN" \
+              "$ORG/$PROJECT/_apis/build/builds/$buildId/timeline?api-version=7.1")
+
+            # Use job name + record name to make it developer-friendly
+            echo "$timeline" | jq -r '.records[] | select(.log.id != null) | "\(.log.id)|\(.parentId)|\(.name)|\(.state)"' |
+            while IFS="|" read -r logId parentId stepName state; do
+              jobName=$(echo "$timeline" | jq -r ".records[] | select(.id==\"$parentId\") | .name")
+              [ "$jobName" = "null" ] && jobName="Main"
+              print_log_lines "$logId" "$jobName" "$stepName" "$state"
+            done
+
+            sleep 10
+            status=$(az pipelines build show --id $buildId --org $ORG --project $PROJECT --query status -o tsv)
+          done
+
+          # Final result
+          result=$(az pipelines build show --id $buildId --org $ORG --project $PROJECT --query result -o tsv)
+          echo "============================================================"
+          echo "FINAL RESULT: $result"
+          echo "============================================================"
+          if [ "$result" != "succeeded" ]; then exit 1; fi
+        
+        

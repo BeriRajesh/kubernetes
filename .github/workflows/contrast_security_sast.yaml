@@ -1,0 +1,12 @@
+name: Contrast SAST Scan
+
+on:
+  push:
+    branches:
+      - develop
+  workflow_dispatch:
+
+jobs:
+  call-sast-template:
+    uses: OMC-Annalect/annalect-github-templates/.github/workflows/template_sast.yaml@main
+    secrets: inherit
