@@ -1,0 +1,423 @@
+{  
+   "AWSTemplateFormatVersion":"2010-09-09",
+   "Description":"Cloudformation Template",
+   "Parameters":{  
+      "EnvironmentType":{  
+         "Type":"String",
+         "Description":"Environment Type where the resources will be deployed",
+         "AllowedValues":[  
+            "eu-west-dev",
+            "eu-west-QA",
+            "eu-west-prod",
+            "eu-west-mgmt",
+            "us-east-dev",
+            "us-east-QA",
+            "us-east-prod",
+            "us-east-mgmt"
+         ]
+      },
+      "ServerType":{
+         "Type":"String",
+         "Description":"Web or App Server",
+         "AllowedValues": [
+            "web",
+            "app"
+         ]
+      },
+      "Environment":{  
+         "Type":"String",
+         "Description":"Environment where the resources will be deployed",
+         "AllowedValues": [
+            "Dev",
+            "QA",
+            "Prod",
+            "Mgmt"
+         ]
+      },
+      "AMI":{  
+         "Type":"String",
+         "Description":"Use the default ubuntu1404 golden AMI ID or provide another AMI",
+         "Default":"ami-e747198d"
+      },
+      "Application":{
+         "Type":"String",
+         "Description":"Enter the Application Name in lowercase"
+      },
+      "IamInstanceRole":{
+         "Type":"String",
+         "Description":"Provide the new IAM instance profile or use the default one \"automationscripts\" ",
+         "Default":"automationscripts"
+      },
+      "SubnetType":{
+         "Type":"String",
+         "Description":"Select the Subnet Type",
+         "Default":"PrivateSubnetPrimary",
+         "AllowedValues":[
+            "PrivateSubnetPrimary",
+            "PrivateSubnetFailover",
+            "PublicSubnetPrimary",
+            "PublicSubnetFailover"
+         ]
+      },
+      "EC2KeyPair":{
+         "Type":"String",
+         "Description":"Select the EC2 Key Pair",
+         "AllowedValues":[
+            "anlct-dev-key",
+            "anlct-prod-key",
+            "anlct-qa-key",
+            "anlct-mgmt-key",
+            "anlcteu-qa-key",
+            "anlcteu-prod-key",
+            "anlcteu-mgmt-key",
+            "anlcteu-dev-key"
+         ]
+      },
+      "InstanceName":{
+         "Type":"String",
+         "Description":"Provide the Instance Name"
+      },
+      "EbsVolumeSize":{
+         "Type":"String",
+         "Default":"8",
+         "Description":"Provide the EBS Volume Size or leave the default value"
+      },
+      "Tagstower":{
+         "Type":"String",
+         "Description":"Select the value for tower key for tagging",
+         "AllowedValues":[
+            "unixub",
+            "wintel",
+            "unixrh-bmc",
+            "windb",
+            "unixub-mdb",
+            "unixrh",
+            "unixcent",
+            "unixaws",
+            "unixub"
+         ]
+      },
+      "InstanceType":{  
+         "Description":"EC2 instance type",
+         "Type":"String",
+         "Default":"m3.medium",
+         "AllowedValues": [
+           "t1.micro",
+           "t2.micro",
+           "t2.small",
+           "t2.medium",
+           "m1.small",
+           "m1.medium",
+           "m1.large",
+           "m1.xlarge",
+           "m2.xlarge",
+           "m2.2xlarge",
+           "m2.4xlarge",
+           "m3.medium",
+           "m3.large",
+           "m3.xlarge",
+           "m3.2xlarge",
+           "c1.medium",
+           "c1.xlarge",
+           "c3.large",
+           "c3.xlarge",
+           "c3.2xlarge",
+           "c3.4xlarge",
+           "c3.8xlarge",
+           "c4.large",
+           "c4.xlarge",
+           "c4.2xlarge",
+           "c4.4xlarge",
+           "c4.8xlarge",
+           "g2.2xlarge",
+           "r3.large",
+           "r3.xlarge",
+           "r3.2xlarge",
+           "r3.4xlarge",
+           "r3.8xlarge",
+           "i2.xlarge",
+           "i2.2xlarge",
+           "i2.4xlarge",
+           "i2.8xlarge",
+           "d2.xlarge",
+           "d2.2xlarge",
+           "d2.4xlarge",
+           "d2.8xlarge",
+           "hi1.4xlarge",
+           "hs1.8xlarge",
+           "cr1.8xlarge",
+           "cc2.8xlarge",
+           "cg1.4xlarge"
+         ],
+         "ConstraintDescription":"Must be a valid EC2 instance type."
+      }
+   },
+   "Mappings":{  
+      "RegionMap":{  
+         "us-east-1":{  
+            "VpcId":"vpc-41948723",
+            "VpcCidr":"10.5.224.0/20",
+            "ARNPrefix":"arn:aws:",
+            "AccountId":"661095214357"
+         },
+         "eu-west-1":{  
+            "VpcId":"vpc-96a879f3",
+            "VpcCidr":"10.5.240.0/22",
+            "ARNPrefix":"arn:aws:",
+            "AccountId":"661095214357"
+         }
+      },
+      "EnvironmentType":{
+         "eu-west-dev":{  
+            "PrivateSubnetPrimary":"subnet-25d51e7c",
+            "PrivateSubnetFailover":"subnet-253fb140",
+            "PublicSubnetPrimary":"subnet-2ed51e77",
+            "PublicSubnetFailover":"subnet-5c3fb139",
+            "AZs":[  
+               "eu-west-1a",
+               "eu-west-1b"
+            ],
+            "MinSize":"1",
+            "MaxSize":"1",
+            "InstanceCount":"1",
+            "web":[
+               "sg-02841f67",
+               "sg-b4950ed1",
+               "sg-1d94c178",
+               "sg-9694c1f3"
+            ],
+            "app":[
+               "sg-02841f67",
+               "sg-b4950ed1",
+               "sg-1d94c178",
+               "sg-9694c1f3"
+            ]
+         },
+         "eu-west-QA":{  
+            "PrivateSubnetPrimary":"subnet-b9d51ee0",
+            "PrivateSubnetFailover":"subnet-d73fb1b2",
+            "PublicSubnetPrimary":"subnet-9bd51ec2",
+            "PublicSubnetFailover":"subnet-e83fb18d",
+            "AZs":[  
+               "eu-west-1a",
+               "eu-west-1b"
+            ],
+            "MinSize":"1",
+            "MaxSize":"1",
+            "InstanceCount":"1",
+            "web":[
+               "sg-02841f67",
+               "sg-b4950ed1",
+               "sg-a29bcec7",
+               "sg-349acf51"
+            ],
+            "app":[
+               "sg-02841f67",
+               "sg-b4950ed1",
+               "sg-a29bcec7",
+               "sg-349acf51"
+            ]
+         },
+         "eu-west-prod":{  
+            "PrivateSubnetPrimary":"subnet-afd51ef6",
+            "PrivateSubnetFailover":"subnet-dc3fb1b9",
+            "PublicSubnetPrimary":"subnet-add51ef4",
+            "PublicSubnetFailover":"subnet-d23fb1b7",
+            "AZs":[  
+               "eu-west-1a",
+               "eu-west-1b"
+            ],
+            "MinSize":"1",
+            "MaxSize":"1",
+            "InstanceCount":"1",
+            "web":[
+               "sg-02841f67",
+               "sg-b4950ed1",
+               "sg-438a1126",
+               "sg-7f8a111a"
+            ],
+            "app":[
+               "sg-02841f67",
+               "sg-b4950ed1",
+               "sg-1a88137f",
+               "sg-7f8a111a"
+            ]
+         },
+         "eu-west-mgmt":{  
+            "PrivateSubnetPrimary":"subnet-31d51e68",
+            "PrivateSubnetFailover":"subnet-4a3fb12f",
+            "PublicSubnetPrimary":"subnet-0fd51e56",
+            "PublicSubnetFailover":"subnet-433fb126",
+            "AZs":[  
+               "eu-west-1a",
+               "eu-west-1b"
+            ],
+            "MinSize":"1",
+            "MaxSize":"1",
+            "InstanceCount":"1",
+            "web":[
+               "sg-02841f67",
+               "sg-b4950ed1",
+               "sg-0f7acf6a",
+               "sg-6fd74d0a"
+            ],
+            "app":[
+               "sg-02841f67",
+               "sg-b4950ed1",
+               "sg-0f7acf6a",
+               "sg-6fd74d0a"
+            ]
+         },
+         "us-east-dev":{  
+            "PrivateSubnetPrimary":"subnet-cd5b25e5",
+            "PrivateSubnetFailover":"subnet-f81b268c",
+            "PublicSubnetPrimary":"subnet-f45b25dc",
+            "PublicSubnetFailover":"subnet-031b2677",
+            "AZs":[  
+               "us-east-1a",
+               "us-east-1b"
+            ],
+            "MinSize":"1",
+            "MaxSize":"1",
+            "InstanceCount":"1",
+            "web":[
+               "sg-0f7acf6a",
+               "sg-d6ea2ab3",
+               "sg-6ddf0b08",
+               "sg-7ee1231b"
+            ],
+            "app":[
+               "sg-0f7acf6a",
+               "sg-d6ea2ab3",
+               "sg-25548140",
+               "sg-7ee1231b"
+            ]
+         },
+         "us-east-QA":{  
+            "PrivateSubnetPrimary":"subnet-6c582644",
+            "PrivateSubnetFailover":"subnet-9d1b26e9",
+            "PublicSubnetPrimary":"subnet-0758262f",
+            "PublicSubnetFailover":"subnet-971b26e3",
+            "AZs":[  
+               "us-east-1a",
+               "us-east-1b"
+            ],
+            "MinSize":"1",
+            "MaxSize":"1",
+            "InstanceCount":"1",
+            "web":[
+               "sg-0f7acf6a",
+               "sg-d6ea2ab3",
+               "sg-9bec2efe",
+               "sg-32ed2f57"
+            ],
+            "app":[
+               "sg-0f7acf6a",
+               "sg-d6ea2ab3",
+               "sg-3c558059",
+               "sg-32ed2f57"
+            ]
+         },
+         "us-east-prod":{  
+            "PrivateSubnetPrimary":"subnet-51582679",
+            "PrivateSubnetFailover":"subnet-641a2710",
+            "PublicSubnetPrimary":"subnet-4558266d",
+            "PublicSubnetFailover":"subnet-731a2707",
+            "AZs":[  
+               "us-east-1a",
+               "us-east-1b"
+            ],
+            "MinSize":"1",
+            "MaxSize":"1",
+            "InstanceCount":"1",
+            "web":[
+               "sg-0f7acf6a",
+               "sg-d6ea2ab3",
+               "sg-eb569b8e",
+               "sg-d130fdb4"
+            ],
+            "app":[
+               "sg-0f7acf6a",
+               "sg-d6ea2ab3",
+               "sg-f12cf994",
+               "sg-d130fdb4"
+            ]
+         },
+         "us-east-mgmt":{  
+            "PrivateSubnetPrimary":"subnet-bea3d096",
+            "PrivateSubnetFailover":"subnet-2dcef859",
+            "PublicSubnetPrimary":"subnet-5fa3d077",
+            "PublicSubnetFailover":"subnet-3ecef84a",
+            "AZs":[  
+               "us-east-1a",
+               "us-east-1b"
+            ],
+            "MinSize":"1",
+            "MaxSize":"1",
+            "InstanceCount":"1",
+            "web":[
+               "sg-0f7acf6a",
+               "sg-d6ea2ab3",
+               "sg-c4c511a1",
+               "sg-69aa640c"
+
+            ],
+            "app":[
+               "sg-0f7acf6a",
+               "sg-d6ea2ab3",
+               "sg-975085f2",
+               "sg-69aa640c"
+            ]
+         }
+      }
+   },
+   "Resources":{  
+      "ServerInstance" : {
+         "Type" : "AWS::EC2::Instance",
+         "DeletionPolicy" : "Retain",
+         "Properties" : {
+            "ImageId" : { "Ref" : "AMI" },
+            "KeyName": {"Ref":"EC2KeyPair"},
+            "SubnetId" : {"Fn::FindInMap":[  
+                  "EnvironmentType",
+                  {  
+                     "Ref":"EnvironmentType"
+                  },
+                  {"Ref":"SubnetType"}
+               ]
+            },
+            "IamInstanceProfile" : {"Ref" : "IamInstanceRole"},
+            "InstanceType" : { "Ref" : "InstanceType" },
+            "DisableApiTermination" : "true",
+            "BlockDeviceMappings" : 
+            [
+              {
+              "DeviceName" : "/dev/sda1",
+              "Ebs" : { "VolumeSize" : {"Ref":"EbsVolumeSize"} } 
+              }
+            ],
+            "SecurityGroupIds" : {  
+               "Fn::FindInMap":[  
+                  "EnvironmentType",
+                  {  
+                     "Ref":"EnvironmentType"
+                  },
+                  {"Ref":"ServerType"}
+               ]
+            },
+            "Tags" : [
+               {"Key" : "Application", "Value" : { "Ref" : "Application" }},
+               {"Key" : "Name", "Value" : { "Ref" : "InstanceName" }},
+               {"Key" : "Environment", "Value" : { "Ref" : "Environment" }},
+               {"Key" : "tower", "Value" : { "Ref" : "Tagstower" }}
+            ],
+            "UserData" : {
+                    "Fn::Base64" : { "Fn::Join" : ["", [
+                      "APP_NAME=",{"Ref":"Application"},"\n",
+                      "SVC_NAME=",{"Ref":"ServerType"},"\n",
+                      "ENV_NAME=",{"Ref":"Environment"},"\n"
+                  ]]}}
+         }
+      }
+   }
+}

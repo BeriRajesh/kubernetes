@@ -1,0 +1,27 @@
+---
+- debug:
+    var: key
+
+- name: perform find in {{ path }} directory
+  shell: >
+    find {{ path }} -not -path "*.ansible*" -name "*.{{ extension }}" -exec grep -q {{ key.oldaccess }} {} \; -print
+  register: found_files
+  become: yes
+
+- name: echo file && sed on file
+  shell: >
+    echo {{ file }} && echo {{ key.oldaccess }} && sed -i.bak191010 -r -e 's#{{ key.oldsecret }}#{{ key.newsecret }}#g' -e 's#{{ key.oldaccess }}#{{ key.newaccess }}#g' {{ file }}
+  with_items:
+    - "{{ found_files.stdout_lines }}"
+  loop_control:
+    loop_var: file
+  register: sedoutput
+  ignore_errors: yes
+  become: yes
+
+- name: debug output of sed
+  debug:
+    msg: "{{ item.stdout }}"
+  loop: "{{ sedoutput.results|flatten(levels=1) }}"
+  loop_control:
+    label: "{{ item.stdout }}"

@@ -1,0 +1,31 @@
+#
+# This file MUST be edited with the 'visudo' command as root.
+# Please consider adding local content in /etc/sudoers.d/ instead of
+# directly modifying this file.
+# See the man page for details on how to write a sudoers file.
+Defaults	env_reset
+Defaults	secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+### Host aliases are subnets or hostnames.
+Host_Alias  MGMT = 10.8.48.0/24, 10.5.224.0/24, 10.5.225.0/24
+Host_Alias  DEV = 10.8.49.0/24, 10.5.226.0/24, 10.5.227.0/24, 10.5.236.0/24, 10.5.237.0/24
+Host_Alias  QA = 10.8.50.0/24, 10.5.228.0/24, 10.5.229.0/24
+Host_Alias  PROD = 10.8.51.0/24, 10.5.230.0/24, 10.5.231.0/24
+Host_Alias	VPC = DEV, QA, PROD, MGMT
+# Apache user Alias
+User_Alias      APACHE_USERS = ansso,deploy,%ANNALECTWW\\linux^webmasters
+User_Alias	DB_USERS = %ANNALECTWW\\linux^dbas 
+#Apache User Command Alias
+Cmnd_Alias APACHE = /usr/local/bin/pip *, /usr/bin/git, /etc/init.d/apache2 start, /etc/init.d/apache2 stop,/etc/init.d/apache2 restart, /usr/sbin/service apache2 restart, /usr/sbin/service apache2 reload
+Cmnd_Alias DB = /usr/bin/mongod, /usr/bin/mongoexport, /usr/bin/mongoimport, /usr/bin/mongoperf, /usr/bin/mongodump, /usr/bin/mongotop, /usr/bin/mongorestore
+#Root user Access
+root ALL=(ALL:ALL) ALL
+# Apache Users
+APACHE_USERS ALL = (ALL) NOPASSWD: APACHE
+#Mongo DB Users
+DB_USERS ALL = (ALL) NOPASSWD: DB
+#Admin users
+#Annalect Infrastructure users
+%ANNALECTWW\\annalect^infra ALL=(ALL) NOPASSWD: ALL
+# See sudoers(5) for more information on "#include" directives:
+#includedir /etc/sudoers.d

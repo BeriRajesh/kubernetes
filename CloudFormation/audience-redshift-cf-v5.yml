@@ -1,0 +1,160 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: >-
+  AWS CloudFormation Template RedshiftClusterInVpc: Create an Amazon Redshift
+  cluster in an existing AWS VPC.
+Parameters:
+  VPC:
+    Description: The VPC Id associated with the cluster
+    Default: vpc-41948723
+    Type: String
+  clusterIdentifier:
+    Description: The Cluster Identifier. Must be a lower case string.
+    Type: String
+    Default: b3455835bd0b11e8aa5cf45c89c7c339
+    AllowedPattern: '([-]|[a-z]|[0-9])+'
+    ConstraintDescription: must contain a-z or 0-9 only.
+  DatabaseName:
+    Description: The name of the default database in the cluster
+    Type: String
+    Default: admin
+    AllowedPattern: '([a-z]|[0-9])+'
+    MinLength: 2
+    ConstraintDescription: must contain a-z or 0-9 only.
+  RedshiftClusterParameterGroupName:
+    Description: Name of the Cluster Parameter Group
+    Type: String
+    Default: aescaledredshift
+  ClusterSubnetGroup:
+    Type: String
+    Description: The Cluster subnet group
+    Default: computing-subnets
+    AllowedValues:
+      - dev2-private-subnets
+      - dev-pvt-subnets
+      - qa-pvt-subnets
+      - prod-pvt-subnets
+      - computing-subnets
+    ConstraintDescription: Selected Cluster Subnet Group may limit the choice of Availability Zones.
+  ClusterType:
+    Description: The cluster type
+    Type: String
+    Default: multi-node
+    AllowedValues:
+      - single-node
+      - multi-node
+    ConstraintDescription: must be single-node or multi-node.
+  NumberOfNodes:
+    Description: >-
+      The number of compute nodes in the cluster. For multi-node clusters, the
+      NumberOfNodes parameter must be greater than 1
+    Type: Number
+    Default: 6
+  NodeType:
+    Description: The cluster node type
+    Type: String
+    Default: dc2.8xlarge
+    AllowedValues:
+      - ds2.xlarge
+      - ds2.8xlarge
+      - dc1.large
+      - dc1.8xlarge
+      - dc2.large
+      - dc2.8xlarge
+    ConstraintDescription: must be a valid RedShift node type.
+  MasterUsername:
+    Description: Username for the master DB user
+    Type: String
+    Default: annalectadmin
+    AllowedPattern: '([a-z])([a-z]|[0-9])*'
+    ConstraintDescription: must start with a-z and contain only a-z or 0-9.
+  MasterUserPassword:
+    Description: >-
+      The password associated with the master user account for the redshift
+      cluster that is being created.
+    Type: String
+    NoEcho: 'true'
+    Default: Anna1ectadmin
+    MinLength: '1'
+    MaxLength: '41'
+    AllowedPattern: '[a-zA-Z0-9]*'
+    ConstraintDescription: must contain only alphanumeric characters.
+  DatabasePort:
+    Description: 'The port the cluster responds on. '
+    Type: String
+    Default: '5439'
+  SnapshotIdentifierName:
+    Description: Name of the Snapshot Identifier
+    Type: String
+    Default: abclusterv2
+  projectTAG:
+    Description: 'Project TAG for the redshift cluster. Must be a lower case string. '
+    Type: String
+    Default: annalect-annalect-audiencebuilder
+    ConstraintDescription: >-
+      must contain only alphanumeric characters, all in lower cases and it
+      should be in <agency-client-project> format
+Mappings: {}
+Conditions:
+  IsMultiNodeCluster: !Equals
+    - !Ref ClusterType
+    - multi-node
+Resources:
+  RedshiftCluster:
+    Type: 'AWS::Redshift::Cluster'
+    Properties:
+      ClusterIdentifier: !Ref clusterIdentifier
+      ClusterType: !Ref ClusterType
+      NumberOfNodes: !If
+        - IsMultiNodeCluster
+        - !Ref NumberOfNodes
+        - !Ref 'AWS::NoValue'
+      NodeType: !Ref NodeType
+      DBName: !Ref DatabaseName
+      MasterUsername: !Ref MasterUsername
+      MasterUserPassword: !Ref MasterUserPassword
+      ClusterParameterGroupName: !Ref RedshiftClusterParameterGroupName
+      VpcSecurityGroupIds:
+        - sg-5e42d33b
+        - sg-48deb534
+      ClusterSubnetGroupName: !Ref ClusterSubnetGroup
+      PubliclyAccessible: 'false'
+      SnapshotIdentifier: !Ref SnapshotIdentifierName
+      Port: !Ref DatabasePort
+      Encrypted: true
+      IamRoles:
+        - arn:aws:iam::661095214357:role/RedshiftCopyUnload
+        - arn:aws:iam::661095214357:role/SpectrumServiceRoleAnnalect
+        - arn:aws:iam::661095214357:role/RedshiftCopyUnload-for-Autoscaled-Clusters
+      AutomatedSnapshotRetentionPeriod: 7
+      AllowVersionUpgrade: false
+      PreferredMaintenanceWindow: 'sat:07:30-sat:08:00'
+      Tags:
+        - Key: Name
+          Value: !Ref clusterIdentifier
+        - Key: Project
+          Value: !Ref projectTAG
+        - Key: Purpose
+          Value: 'adhoc-redshift'
+Outputs:
+  ClusterEndpoint:
+    Description: Cluster endpoint
+    Value: !Join
+      - ':'
+      - - !GetAtt
+          - RedshiftCluster
+          - Endpoint.Address
+        - !GetAtt
+          - RedshiftCluster
+          - Endpoint.Port
+  ClusterName:
+    Description: Name of the Cluster
+    Value: !Ref RedshiftCluster
+  ParameterGroupName:
+    Description: Name of the Parameter Group
+    Value: !Ref RedshiftClusterParameterGroupName
+  RedshiftClusterSubnetGroupName:
+    Description: Name of the Cluster Subnet Group
+    Value: !Ref ClusterSubnetGroup
+  RedshiftSnapshotIdentifierName:
+    Description: Name of Redshift Snapshot
+    Value: !Ref SnapshotIdentifierName

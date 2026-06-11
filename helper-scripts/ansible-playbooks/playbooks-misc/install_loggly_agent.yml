@@ -1,0 +1,23 @@
+---
+- hosts: tag_Environment_Prod:&tag_Application_ade:&tag_Layer_web
+  vars:
+    loggly_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          32636635343361313738376536346434373733643434386164396135393738383362333437326663
+          6362663132383132633835336332333561613834623437320a613833336164613266336335323165
+          61326635666664393763613763316135353162316364383166323331616134343532353835653064
+          3135646465623263300a306662363932326531353064383837303732633062666430656638313836
+          6366
+    loggly_usename: annalecttio
+  tasks:
+    - name: download installer
+      shell: curl -O https://www.loggly.com/install/configure-apache.sh
+      args:
+        chdir: /opt
+      become: yes
+
+    - name: run installer
+      shell: bash configure-apache.sh -a annalect -t e4e7c419-af0f-449a-a35c-4fcc4a13238d -u {{ loggly_usename }} -p {{ loggly_password }} -s --insecure
+      args:
+        chdir: /opt
+      become: yes

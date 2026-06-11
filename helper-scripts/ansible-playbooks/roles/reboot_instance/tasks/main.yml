@@ -1,0 +1,14 @@
+---
+# Send the reboot command
+- name: send restart command in 1min
+  shell: shutdown -r 1
+  become: yes
+
+# This pause is mandatory, otherwise the existing control connection gets reused!
+- name: waiting 90 second (1min to start reboot, 30s to come up)
+  pause: seconds=90
+
+- name: Wait for connection (timeout 600s)
+  wait_for_connection:
+#        delay: 60
+    timeout: 600

@@ -1,0 +1,29 @@
+---
+#- hosts: 10.5.226.160 # tag_Name_*MESOS*
+#  tasks:
+#    - name: Ensure tags are present on a resource
+#      local_action:
+#        module: ec2_tag
+#        region: "{{ ec2_region }}"
+#        resource: "{{ ec2_id }}"
+#        state: absent
+#        tags:
+#          Mesos: "Yes"
+
+- hosts: "*dev*rds*"
+  gather_facts: no
+  tasks:
+    - rds:
+        command: facts
+      register: new_database_facts
+
+#    - debug:
+#        msg: "{{ new_database_facts }}"
+#    - name: Ensure tags are present on a resource
+#      local_action:
+#        module: ec2_tag
+#        region: "{{ ec2_region }}"
+#        resource: "{{ ec2_id }}"
+#        state: present
+#        tags:
+#          Environment: "Dev"

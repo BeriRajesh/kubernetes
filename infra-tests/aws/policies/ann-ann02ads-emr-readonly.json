@@ -1,0 +1,21 @@
+{
+    "Statement": [
+        {
+            "Action": [
+                "elasticmapreduce:Describe*",
+                "elasticmapreduce:ListSteps",
+                "elasticmapreduce:ListInstances",
+                "elasticmapreduce:ListInstanceGroups",
+                "elasticmapreduce:ListClusters",
+                "elasticmapreduce:ListBootstrapActions",
+                "cloudwatch:GetMetricStatistics",
+                "ec2:DescribeInstances"
+            ],
+            "Effect": "Allow",
+            "Resource": [
+                "*"
+            ]
+        }
+    ],
+    "Version": "2012-10-17"
+}

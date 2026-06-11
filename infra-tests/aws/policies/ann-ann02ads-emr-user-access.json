@@ -1,0 +1,171 @@
+{
+    "Statement": [
+        {
+            "Action": [
+                "elasticmapreduce:ViewEventsFromAllClustersInConsole",
+                "elasticmapreduce:RemoveAutoScalingPolicy",
+                "elasticmapreduce:PutBlockPublicAccessConfiguration",
+                "elasticmapreduce:PutAutoScalingPolicy",
+                "elasticmapreduce:ModifyInstanceGroups",
+                "elasticmapreduce:ModifyInstanceFleet",
+                "elasticmapreduce:ListYarnApplicationsPrivate",
+                "elasticmapreduce:ListSecurityConfigurations",
+                "elasticmapreduce:ListInstanceFleets",
+                "elasticmapreduce:ListEditors",
+                "elasticmapreduce:ListClusters",
+                "elasticmapreduce:GetBlockPublicAccessConfiguration",
+                "elasticmapreduce:DescribeSecurityConfiguration",
+                "elasticmapreduce:DeleteSecurityConfiguration",
+                "elasticmapreduce:CreateSecurityConfiguration",
+                "elasticmapreduce:CancelSteps",
+                "elasticmapreduce:AddJobFlowSteps",
+                "elasticmapreduce:AddInstanceGroups",
+                "elasticmapreduce:AddInstanceFleet",
+                "ec2:RequestSpotInstances",
+                "ec2:DescribeVpcs",
+                "ec2:DescribeSubnets",
+                "ec2:DescribeSubnet",
+                "ec2:DescribeSpotPriceHistory",
+                "ec2:DescribeSpotInstanceRequests",
+                "ec2:DescribeSecurityGroups",
+                "ec2:DescribeRouteTables",
+                "ec2:DescribeNetworkAcls",
+                "ec2:DescribeKeyPairs",
+                "ec2:DescribeAvailabilityZones",
+                "ec2:DescribeAccountAttributes",
+                "ec2:CancelSpotInstanceRequests",
+                "cloudwatch:GetMetricStatistics"
+            ],
+            "Effect": "Allow",
+            "Resource": "*",
+            "Sid": "Stmt12345678901234"
+        },
+        {
+            "Action": [
+                "elasticmapreduce:DescribeCluster",
+                "elasticmapreduce:ListSteps",
+                "elasticmapreduce:TerminateJobFlows",
+                "elasticmapreduce:SetTerminationProtection",
+                "elasticmapreduce:ListInstances",
+                "elasticmapreduce:ListInstanceGroups",
+                "elasticmapreduce:ListBootstrapActions",
+                "elasticmapreduce:DescribeStep"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "elasticmapreduce:ResourceTag/access-project": "${aws:PrincipalTag/access-project}",
+                    "elasticmapreduce:ResourceTag/access-team": "${aws:PrincipalTag/access-team}"
+                }
+            },
+            "Effect": "Allow",
+            "Resource": "*",
+            "Sid": "Stmt123456789012345"
+        },
+        {
+            "Action": [
+                "elasticmapreduce:StopEditor",
+                "elasticmapreduce:StartEditor",
+                "elasticmapreduce:OpenEditorInConsole",
+                "elasticmapreduce:DescribeEditor",
+                "elasticmapreduce:DeleteEditor"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "elasticmapreduce:ResourceTag/access-project": "${aws:PrincipalTag/access-project}",
+                    "elasticmapreduce:ResourceTag/access-team": "${aws:PrincipalTag/access-team}"
+                }
+            },
+            "Effect": "Allow",
+            "Resource": "*",
+            "Sid": ""
+        },
+        {
+            "Action": "elasticmapreduce:CreateEditor",
+            "Condition": {
+                "StringEquals": {
+                    "elasticmapreduce:RequestTag/access-project": "${aws:PrincipalTag/access-project}",
+                    "elasticmapreduce:RequestTag/access-team": "${aws:PrincipalTag/access-team}"
+                }
+            },
+            "Effect": "Allow",
+            "Resource": "*",
+            "Sid": ""
+        },
+        {
+            "Action": "elasticmapreduce:RunJobFlow",
+            "Condition": {
+                "StringEquals": {
+                    "elasticmapreduce:RequestTag/access-project": "${aws:PrincipalTag/access-project}",
+                    "elasticmapreduce:RequestTag/access-team": "${aws:PrincipalTag/access-team}"
+                }
+            },
+            "Effect": "Allow",
+            "Resource": "*",
+            "Sid": "Stmt1479334524000"
+        },
+        {
+            "Action": [
+                "elasticmapreduce:RemoveTags",
+                "elasticmapreduce:AddTags"
+            ],
+            "Condition": {
+                "StringNotEquals": {
+                    "elasticmapreduce:ResourceTag/access-project": "${aws:PrincipalTag/access-project}",
+                    "elasticmapreduce:ResourceTag/access-team": "${aws:PrincipalTag/access-team}"
+                }
+            },
+            "Effect": "Deny",
+            "Resource": "*",
+            "Sid": ""
+        },
+        {
+            "Action": "iam:PassRole",
+            "Condition": {
+                "StringEquals": {
+                    "elasticmapreduce:RequestTag/access-project": "${aws:PrincipalTag/access-project}",
+                    "elasticmapreduce:RequestTag/access-team": "${aws:PrincipalTag/access-team}"
+                }
+            },
+            "Effect": "Allow",
+            "Resource": [
+                "arn:aws:iam::*:role/EMR_AutoScaling_DefaultRole",
+                "arn:aws:iam::*:role/Custom_EMR_Role",
+                "arn:aws:iam::*:role/EMR_DefaultRole",
+                "arn:aws:iam::*:role/custom-emr-service-role",
+                "arn:aws:iam::*:role/${aws:PrincipalTag/access-project}-*"
+            ],
+            "Sid": ""
+        },
+        {
+            "Action": "iam:CreateServiceLinkedRole",
+            "Condition": {
+                "StringLike": {
+                    "iam:AWSServiceName": [
+                        "elasticmapreduce.amazonaws.com.cn",
+                        "elasticmapreduce.amazonaws.com"
+                    ]
+                }
+            },
+            "Effect": "Allow",
+            "Resource": "*",
+            "Sid": ""
+        },
+        {
+            "Action": [
+                "iam:ListRoles"
+            ],
+            "Effect": "Allow",
+            "Resource": "*",
+            "Sid": ""
+        },
+        {
+            "Action": "s3:*",
+            "Effect": "Allow",
+            "Resource": [
+                "arn:aws:s3:::*.elasticmapreduce/*",
+                "arn:aws:s3:::*.elasticmapreduce"
+            ]
+        }
+    ],
+    "Version": "2012-10-17"
+}

@@ -1,0 +1,6 @@
+---
+- name: openvpnas running
+  service:
+    name: openvpnas
+    state: started
+

@@ -1,0 +1,6 @@
+---
+- name: ipsec running
+  service:
+    name: ipsec
+    state: started
+

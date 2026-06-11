@@ -1,0 +1,32 @@
+---
+- hosts: localhost
+  tasks:
+  - debug:
+  - include_role:
+      name: execute_with_script
+
+- hosts: us-east-1:&tag_tower_unixub
+  strategy: free
+  # any_errors_fatal: true
+  vars:
+    min_size: "1000"
+    start_path: "/"
+  tasks:
+    - name: run shell command to determine folders with size
+      shell: du {{ start_path }} -k | awk '{if ($1>500000) { size=$1; $1=""; fname=$0; $0=gsub(/^[ ]*/, "", fname);cmd="find \""fname"\" -maxdepth 0 -print0 -printf \"\t%TD\""; cmd | getline out; close(cmd); if (out!="") {print size,"\t",fname,"\t",out}} }'
+      become: yes
+      register: folder_size_report
+
+    - name: creating report for host
+      copy:
+        content: "{{ folder_size_report.stdout }}"
+        dest: tmp/folder-sizes-{{ ec2_tag_Environment | default("") }}-{{ ec2_tag_Application | default("") }}-{{ ec2_private_ip_address | default("") }}.csv
+      delegate_to: localhost
+
+- hosts: localhost
+  tasks:
+    - name: writing summary file
+      shell: for f in tmp/folder-sizes-*; do awk '{print FILENAME"\t"$0}' $f >> tmp/folder-sizes-summary.csv ; done;
+      delegate_to: localhost
+
+    - debug: msg="Summary file written to tmp/folder-size-summary.csv"

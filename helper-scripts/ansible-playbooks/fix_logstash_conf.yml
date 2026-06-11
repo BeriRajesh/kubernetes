@@ -1,0 +1,14 @@
+---
+- hosts: tag_Application_ade:&tag_Environment_Prod:&tag_Layer_ingest
+  tasks:
+  - name: changing 'beginning' to 'end'
+    replace:
+      backup: yes
+      path: /opt/logstash/logstash-loggly-mesos.conf
+      regexp: '^(.*)start_position => beginning(.*)$'
+      replace: '\1start_position => end'
+    become: yes
+
+  - name: restarting logstash-autostart
+    shell: nohup /etc/logstash-autostart.sh &
+    become: yes

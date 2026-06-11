@@ -1,0 +1,7 @@
+---
+- hosts: tag_Monitoring_datadog:!platform_windows
+#  tags: always
+  become: yes
+#  strategy: free
+  roles:
+    - { role: datadog.monitoring, become: yes }

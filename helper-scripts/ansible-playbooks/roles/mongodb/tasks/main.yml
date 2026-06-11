@@ -1,0 +1,6 @@
+---
+- name: mongodb running
+  service:
+    name: mongodb
+    state: started
+

@@ -1,0 +1,67 @@
+#!/bin/bash
+today=`date +%Y-%m-%d`
+NOW=$(date)
+yesterday=`date --date='yesterday' '+%Y-%m-%d'`
+#EMAIL=shashikant.kuwar@annalect.com
+EMAIL="annalecttio@annalect.com"
+
+#check the current size of database
+database=assembly
+CURRENT="`du -sk /backup/mongodbbackup/prod/$today/assembly | cut -f1`"
+LAST="`du -sk /backup/mongodbbackup/prod/$yesterday/assembly | cut -f1`"
+if [ "$CURRENT" -lt "$LAST" ]; then
+echo "You are getting this automated alert as the $database mongo database size (Kb) seems decreased compare to yesterday's dump"  > /tmp/mongodbstatus
+echo "Mongo Database Name=$database, Size in Kb" >> /tmp/mongodbstatus
+echo "-----------------------------" >> /tmp/mongodbstatus
+du -sk /backup/mongodbbackup/prod/$today/assembly/  >> /tmp/mongodbstatus
+du -sk /backup/mongodbbackup/prod/$yesterday/assembly/  >> /tmp/mongodbstatus
+#echo "TODAY_DUMP_SIZE=$CURRENT Kb">> /tmp/mongodbstatus
+#echo "YESTERDAY_DUMP_SIZE=$LAST Kb">> /tmp/mongodbstatus
+mail -s "Alert: MongoDB prod database ($database) size dropped" $EMAIL < /tmp/mongodbstatus
+fi
+
+database=alloc
+#check the current size of database
+CURRENT="`du -sk /backup/mongodbbackup/prod/$today/alloc | cut -f1`"
+LAST="`du -sk /backup/mongodbbackup/prod/$yesterday/alloc | cut -f1`"
+if [ "$CURRENT" -lt "$LAST" ]; then
+echo "You are getting this automated alert as the $database mongo database size (Kb) seems decreased compare to yesterday's dump"  > /tmp/mongodbstatus1
+echo "Mongo Database Name=$database, Size in Kb" >> /tmp/mongodbstatus1
+echo "-----------------------------" >> /tmp/mongodbstatus1
+du -sk /backup/mongodbbackup/prod/$today/alloc/  >> /tmp/mongodbstatus1
+du -sk /backup/mongodbbackup/prod/$yesterday/alloc/  >> /tmp/mongodbstatus1
+#echo "TODAY_DUMP_SIZE=$CURRENT Kb" >> /tmp/mongodbstatus1
+#echo "YESTERDAY_DUMP_SIZE=$LAST Kb" >> /tmp/mongodbstatus1
+mail -s "Alert: MongoDB prod database ($database) size dropped" $EMAIL < /tmp/mongodbstatus1
+fi
+#QA Environment
+#check the current size of database
+database=assembly
+CURRENT="`du -sk /backup/mongodbbackup/qa/$today/assembly | cut -f1`"
+LAST="`du -sk /backup/mongodbbackup/qa/$yesterday/assembly | cut -f1`"
+if [ "$CURRENT" -lt "$LAST" ]; then
+echo "You are getting this alert as the $database mongo database size seems decreased compare to yesterday's dump"  > /tmp/mongodbstatus2
+echo "Mongo Database Name=$database" >> /tmp/mongodbstatus2
+echo "-----------------------------" >> /tmp/mongodbstatus2
+du -sk /backup/mongodbbackup/qa/$today/assembly/  >> /tmp/mongodbstatus2
+du -sk /backup/mongodbbackup/qa/$yesterday/assembly/  >> /tmp/mongodbstatus2
+#echo "TODAY_DUMP_SIZE=$CURRENT Kb">> /tmp/mongodbstatus
+#echo "YESTERDAY_DUMP_SIZE=$LAST Kb">> /tmp/mongodbstatus
+mail -s "$database MongoDB QA database size got reduced" $EMAIL < /tmp/mongodbstatus2
+fi
+
+database=alloc
+#check the current size of database
+CURRENT="`du -sk /backup/mongodbbackup/qa/$today/alloc | cut -f1`"
+LAST="`du -sk /backup/mongodbbackup/qa/$yesterday/alloc | cut -f1`"
+if [ "$CURRENT" -lt "$LAST" ]; then
+echo "You are getting this alert as the $database mongo database size seems decreased compare to yesterday's dump"  > /tmp/mongodbstatus3
+echo "Mongo Database Name=$database" >> /tmp/mongodbstatus3
+echo "-----------------------------" >> /tmp/mongodbstatus3
+du -sk /backup/mongodbbackup/qa/$today/alloc/  >> /tmp/mongodbstatus3
+du -sk /backup/mongodbbackup/qa/$yesterday/alloc/  >> /tmp/mongodbstatus3
+#echo "TODAY_DUMP_SIZE=$CURRENT Kb" >> /tmp/mongodbstatus1
+#echo "YESTERDAY_DUMP_SIZE=$LAST Kb" >> /tmp/mongodbstatus1
+mail -s "$database MongoDB QA database size got reduced" $EMAIL < /tmp/mongodbstatus3
+fi
+

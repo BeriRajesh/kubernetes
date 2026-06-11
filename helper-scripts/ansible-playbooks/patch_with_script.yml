@@ -1,0 +1,24 @@
+---
+#
+# To control if patching process (un)holds packages, this playbook can be run with the options:
+#     $ ansible-playbook patch-dev.yml [ -e unhold_packages=yes|no ] [ -e unhold_mesos_slave=yes|no ]
+#
+# Packages are held by default
+
+- hosts:
+    tag_tower_unixub
+    :!tag_ServiceGroup_docker
+    :!tag_Application_rsyslog
+    :!tag_Application_pipeline
+    :!tag_Application_netherland
+    :!tag_Layer_ecs
+    :!platform_windows
+  become: yes
+#  any_errors_fatal: true
+  tasks:
+  - name: including patching role
+    include_role:
+      name: patching
+    vars:
+      upgrade_distribution: no
+    tags: always

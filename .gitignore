@@ -1,0 +1,10 @@
+*.log
+*.pyc
+*.swp
+*.DS_Store
+.metadata/
+venv
+helper-scripts.code-workspace
+*.code-workspace
+.vscode
+utility_scripts

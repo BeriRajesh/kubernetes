@@ -1,0 +1,8 @@
+---
+- name: check java running
+  shell: echo $(java -version 2>&1) | if grep -q -e "java_version " -e "java version "; then echo yes; else echo no; fi
+  register: java_running
+
+- fail: msg="java not running"
+  when: java_running.stdout == "no"
+

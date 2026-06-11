@@ -1,0 +1,163 @@
+{
+    "Statement": [
+        {
+            "Action": [
+                "ssm:PutParameter"
+            ],
+            "Condition": {
+                "ForAllValues:StringEquals": {
+                    "aws:TagKeys": [
+                        "access-project",
+                        "access-team",
+                        "Name"
+                    ]
+                },
+                "StringEquals": {
+                    "aws:RequestTag/access-project": "${aws:PrincipalTag/access-project}",
+                    "aws:RequestTag/access-team": "${aws:PrincipalTag/access-team}"
+                },
+                "StringLikeIfExists": {
+                    "aws:RequestTag/Name": "*"
+                }
+            },
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": [
+                "ssm:PutParameter"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "ssm:Overwrite": [
+                        "false"
+                    ]
+                }
+            },
+            "Effect": "Deny",
+            "Resource": [
+                "arn:aws:ssm:*:*:parameter/*"
+            ]
+        },
+        {
+            "Action": [
+                "ssm:GetParametersByPath"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "ssm:Recursive": [
+                        "true"
+                    ]
+                }
+            },
+            "Effect": "Deny",
+            "Resource": [
+                "arn:aws:ssm:*:*:parameter/*"
+            ]
+        },
+        {
+            "Action": [
+                "ssm:DeleteParameter",
+                "ssm:DeleteParameters",
+                "ssm:GetParameterHistory",
+                "ssm:GetParameters",
+                "ssm:GetParameter",
+                "ssm:ListTagsForResource"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestTag/access-project": "${aws:PrincipalTag/access-project}",
+                    "aws:RequestTag/access-team": "${aws:PrincipalTag/access-team}"
+                }
+            },
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": [
+                "ssm:DescribeParameters"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "ssm:ResourceTag/access-team": "${aws:PrincipalTag/access-team}"
+                }
+            },
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": [
+                "ssm:AddTagsToResource"
+            ],
+            "Condition": {
+                "ForAnyValue:StringEquals": {
+                    "aws:TagKeys": [
+                        "access-project",
+                        "access-team",
+                        "Name",
+                        "Authorizers",
+                        "Environment",
+                        "Hyperion",
+                        "Application",
+                        "ServiceGroup",
+                        "tower",
+                        "monitoring",
+                        "Approver",
+                        "Client",
+                        "Compliance",
+                        "Job Code",
+                        "Location",
+                        "OS",
+                        "Patch Group",
+                        "Project",
+                        "Owner",
+                        "Protection Tier",
+                        "Roll up",
+                        "Scope",
+                        "Service Hours",
+                        "Data Classification",
+                        "Placement",
+                        "Data Retention",
+                        "ManagedBy"
+                    ]
+                },
+                "StringEquals": {
+                    "ssm:RequestTag/access-project": "${aws:PrincipalTag/access-project}",
+                    "ssm:RequestTag/access-team": "${aws:PrincipalTag/access-team}"
+                },
+                "StringEqualsIfExists": {
+                    "aws:RequestTag/Name": "*",
+                    "aws:RequestTag/access-project": [
+                        "${aws:PrincipalTag/access-project}"
+                    ],
+                    "aws:RequestTag/access-team": [
+                        "${aws:PrincipalTag/access-team}"
+                    ]
+                }
+            },
+            "Effect": "Allow",
+            "Resource": "*",
+            "Sid": "PermissionPolicyToManageTags"
+        },
+        {
+            "Action": [
+                "ssm:RemoveTagsFromResource"
+            ],
+            "Condition": {
+                "StringLike": {
+                    "aws:TagKeys": [
+                        "access-*"
+                    ]
+                }
+            },
+            "Effect": "Deny",
+            "Resource": "*"
+        },
+        {
+            "Action": "ssm:*Policy",
+            "Effect": "Deny",
+            "Resource": "*"
+        }
+    ],
+    "Version": "2012-10-17"
+}

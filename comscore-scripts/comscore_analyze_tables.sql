@@ -1,0 +1,12 @@
+set search_path to 'public';
+analyze url_final_new;
+analyze url_cn;
+analyze url_final_cn_new;
+analyze url_final_uk_new;
+analyze url_final_ca_new;
+analyze search_final;
+analyze search_final_cn2;
+analyze url_youtube;
+analyze search_cn2;
+analyze search_final_cn;
+analyze search_cn;

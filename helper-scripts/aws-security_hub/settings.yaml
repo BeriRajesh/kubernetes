@@ -1,0 +1,18 @@
+# list of configured profiles
+accounts:
+  - "ann27-prod-amd-security-auditor"
+
+# filters to be used to filter for security findints
+filters:
+  - filter_name: WorkflowStatus
+    value: NEW
+    comparison: EQUALS
+
+  - filter_name: RecordState
+    value: ACTIVE
+    comparison: EQUALS
+
+# sorting of the return list
+sort_criteria:
+  field: LastObservedAt
+  sort_order: desc

@@ -1,0 +1,29 @@
+# AWS Resource Tagging and Filtering Script
+
+## Overview
+This script connects to AWS using the Boto3 library and retrieves information about various AWS resources such as EBS volumes, EFS file systems, FSX file systems, RDS instances, and DynamoDB tables. It filters these resources based on specified tags and exports the filtered data to an Excel file.
+
+## Requirements
+- Python 3.x
+- Boto3 library
+- Pandas library
+
+## Usage
+1. Clone the repository or download the script file (`backup-tags.py`).
+2. Install Python 3.x if not already installed.
+3. Install the required libraries by running:
+    ```
+    pip install boto3 pandas
+    ```
+4. Set up AWS credentials with appropriate permissions. You can do this by configuring AWS CLI or setting environment variables.
+5. Run the script by executing the following command:
+    ```
+    python backup-tags.py
+    ```
+6. Follow the on-screen instructions to select the AWS profile and monitor the script's progress.
+7. Once the script finishes execution, the filtered resources will be exported to an Excel file named `backup_false_resource.xlsx` with the profile name as a prefix.
+
+## Configuration
+- Modify the `backup_tag_key`, `backup_tag_value`, and `patchup_tag_key` variables in the script to customize the tags used for filtering resources.
+- Adjust the `exclude_table` variable in the script to specify DynamoDB tables to be excluded from filtering.
+

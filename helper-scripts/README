@@ -1,0 +1,3 @@
+Install requirements with
+
+pip3 intall -r requirements.txt

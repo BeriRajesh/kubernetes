@@ -1,0 +1,2867 @@
+{
+    "Rules": [
+        {
+            "Recipients": [
+                "annalect.cloud"
+            ],
+            "Name": "m-cda53baeaff04b6c8e5b2393c987f58e",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "WorkmailAction": {
+                        "OrganizationArn": "arn:aws:workmail:us-east-1:661095214357:organization/m-cda53baeaff04b6c8e5b2393c987f58e"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "att.foursquare@annalect.cloud",
+                "att.publisher@annalect.cloud",
+                "attdata@annalect.cloud",
+                "carskenshoo@annalect.cloud",
+                "dbmdata@annalect.cloud",
+                "iras@annalect.cloud",
+                "levisadobe@annalect.cloud",
+                "monsterkenshoo@annalect.cloud",
+                "omd.uop.programmatic@annalect.cloud",
+                "omd.uop.sitepartners@annalect.cloud",
+                "omd.uop.trueview@annalect.cloud",
+                "omd.wf.sitepartners@annalect.cloud",
+                "omd.wf.trueview@annalect.cloud",
+                "pepsidata@annalect.cloud",
+                "phd.hpi.spiceworks@annalect.cloud",
+                "shashik@annalect.cloud",
+                "ttddata@annalect.cloud"
+            ],
+            "Name": "spam-filter-rule",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "LambdaAction": {
+                        "FunctionArn": "arn:aws:lambda:us-east-1:661095214357:function:AnnalectcloudEmailFilter",
+                        "InvocationType": "RequestResponse"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "28377ca8700d11e8@annalect.cloud"
+            ],
+            "Name": "28377ca8700d11e8",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/atc_social/CN_Youku"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/atc_social/CN_Youku/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "27dee28c700d11e8@annalect.cloud"
+            ],
+            "Name": "27dee28c700d11e8",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/atc_social/JP_LINE"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/atc_social/JP_LINE/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "276ff321700d11e8@annalect.cloud"
+            ],
+            "Name": "276ff321700d11e8",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/atc_social/KR_KAKAO"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/atc_social/KR_KAKAO/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "25048197700d11e8@annalect.cloud"
+            ],
+            "Name": "25048197700d11e8",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/atc_social/RU_VK"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/atc_social/RU_VK/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "8fd9a7856fe811e8@annalect.com"
+            ],
+            "Name": "8fd9a7856fe811e8",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "procter-gamble-prod"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "4C_snapchat"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "procter-gamble-prod/4C_snapchat/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "7f5914306e7111e8@annalect.cloud"
+            ],
+            "Name": "7f5914306e7111e8",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "procter-gamble-prod"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "4C_pinterest"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "procter-gamble-prod/4C_pinterest/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "737c660f648711e8@annalect.cloud"
+            ],
+            "Name": "737c660f648711e8",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "procter-gamble-prod"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "4c_snapchat"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "procter-gamble-prod/4c_snapchat/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "fe80e0c05e2d11e8@annalect.cloud"
+            ],
+            "Name": "fe80e0c05e2d11e8",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "rm-mercedes-aip"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "sd/incoming"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "rm-mercedes-aip/sd/incoming/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "de74cc17598111e8@annalect.cloud"
+            ],
+            "Name": "de74cc17598111e8",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "rm-nissan-aip"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "incoming"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "rm-nissan-aip/incoming/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "a6f2109e466211e8@annalect.cloud"
+            ],
+            "Name": "a6f2109e466211e8",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "heartsscience/att/aipdatasources/unified/sources/linkedin/incoming"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/heartsscience/att/aipdatasources/unified/sources/linkedin/incoming/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "d315bd8515d511e8@annalect.cloud"
+            ],
+            "Name": "d315bd8515d511e8",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "PHD/hpi/dataxu"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/PHD/hpi/dataxu/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": false
+        },
+        {
+            "Recipients": [
+                "1056bcee412911e8@annalect.cloud"
+            ],
+            "Name": "1056bcee412911e8",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "annalect/bo/replicon"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/annalect/bo/replicon/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "04ded5cf36ec11e8@annalect.cloud"
+            ],
+            "Name": "04ded5cf36ec11e8",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "heartsscience-intuit-aip"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "ispot"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "heartsscience-intuit-aip/ispot/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "fddc209436eb11e8@annalect.cloud"
+            ],
+            "Name": "fddc209436eb11e8",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "heartsscience-intuit-aip"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "dbm"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "heartsscience-intuit-aip/dbm/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "f23cc0f327ca11e8@annalect.cloud"
+            ],
+            "Name": "f23cc0f327ca11e8",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omdemea-renault-aip"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "DCM"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omdemea-renault-aip/DCM/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "9362a2b325a811e8@annalect.cloud"
+            ],
+            "Name": "9362a2b325a811e8",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "annalect-dataintegration-aip"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "fb"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "annalect-dataintegration-aip/fb/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "7c3b496825a811e8@annalect.cloud"
+            ],
+            "Name": "7c3b496825a811e8",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "annalect-dataintegration-aip"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "mm"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "annalect-dataintegration-aip/mm/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "64647f2625a811e8@annalect.cloud"
+            ],
+            "Name": "64647f2625a811e8",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "annalect-dataintegration-aip"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "ttd"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "annalect-dataintegration-aip/ttd/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "486bd3ca25a811e8@annalect.cloud"
+            ],
+            "Name": "486bd3ca25a811e8",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "annalect-dataintegration-aip"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "customaudience"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "annalect-dataintegration-aip/customaudience/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "f9e0393a25a711e8@annalect.cloud"
+            ],
+            "Name": "f9e0393a25a711e8",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "annalect-dataintegration-aip"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "dbm"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "annalect-dataintegration-aip/dbm/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "70ce3b801cbd11e8@annalect.cloud"
+            ],
+            "Name": "70ce3b801cbd11e8",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "heartsscience/att/aipdatasources/mediatools"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/heartsscience/att/aipdatasources/mediatools/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "a94587a31c8e11e8@annalect.cloud"
+            ],
+            "Name": "a94587a31c8e11e8",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omd-statefarm-aip"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "aipdatasource/atlas"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omd-statefarm-aip/aipdatasource/atlas/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "17b2e2541bef11e8@annalect.cloud"
+            ],
+            "Name": "17b2e2541bef11e8",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omd-statefarm-aip"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "aipdatasource/ias"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omd-statefarm-aip/aipdatasource/ias/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "f9a923f5136011e8@annalect.cloud"
+            ],
+            "Name": "f9a923f5136011e8",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/mcdonalds/aipdatasource/adobe"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/mcdonalds/aipdatasource/adobe/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "af8a3db505fb11e8@annalect.cloud"
+            ],
+            "Name": "af8a3db505fb11e8",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "PHD/hpi/china"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/PHD/hpi/china/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "ae1c4a0c02af11e8@annalect.cloud"
+            ],
+            "Name": "ae1c4a0c02af11e8",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omd-statefarm-aip"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "aipdatasource/innovid"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omd-statefarm-aip/aipdatasource/innovid/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "923e50d402af11e8@annalect.cloud"
+            ],
+            "Name": "923e50d402af11e8",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omd-statefarm-aip"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "aipdatasource/callbox"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omd-statefarm-aip/aipdatasource/callbox/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "a0624d6eff8a11e7@annalect.cloud"
+            ],
+            "Name": "a0624d6eff8a11e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omd-statefarm-aip"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "aipdatasource/media-vendors"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omd-statefarm-aip/aipdatasource/media-vendors/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "323ea761fb0a11e7@annalect.cloud"
+            ],
+            "Name": "323ea761fb0a11e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "resolutionmedia/internal"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/resolutionmedia/internal/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "4b6b24e6fa6911e7@annalect.cloud"
+            ],
+            "Name": "4b6b24e6fa6911e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/uop/OMDp"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/uop/OMDp/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "27623199dad211e7@annalect.cloud"
+            ],
+            "Name": "27623199dad211e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "PHD/hpi/oath/brightroll"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/PHD/hpi/oath/brightroll/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "972e8ebdd6e111e7@annalect.cloud"
+            ],
+            "Name": "972e8ebdd6e111e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/mcdonalds/aipdatasource/ds3"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/mcdonalds/aipdatasource/ds3/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "708978c7d55311e7@annalect.cloud"
+            ],
+            "Name": "708978c7d55311e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/uop/ias"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/uop/ias/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "9dc71814cd9711e7@annalect.cloud"
+            ],
+            "Name": "9dc71814cd9711e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/mcdonalds/aipdatasource/media-vendors"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/mcdonalds/aipdatasource/media-vendors/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "cfa3125ccbe311e7@annalect.cloud"
+            ],
+            "Name": "cfa3125ccbe311e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "PHD/hpi/snapdeal/india"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/PHD/hpi/snapdeal/india/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "acfe339ccbe311e7@annalect.cloud"
+            ],
+            "Name": "acfe339ccbe311e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "PHD/hpi/flipkart/india"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/PHD/hpi/flipkart/india/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "8deec168cbe311e7@annalect.cloud"
+            ],
+            "Name": "8deec168cbe311e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "PHD/hpi/paytm/india"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/PHD/hpi/paytm/india/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "778f0e97cbe311e7@annalect.cloud"
+            ],
+            "Name": "778f0e97cbe311e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "PHD/hpi/amazon/india"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/PHD/hpi/amazon/india/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "8b0a4494c0d811e7@annalect.cloud"
+            ],
+            "Name": "8b0a4494c0d811e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "resolutionmedia/nissan/ds3"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/resolutionmedia/nissan/ds3/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "3a57af6bc0cd11e7@annalect.cloud"
+            ],
+            "Name": "3a57af6bc0cd11e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "annalectcloudmail-dbm"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "decrypted_data"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "annalectcloudmail-dbm/decrypted_data/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "1a4a364abeaa11e7@annalect.cloud"
+            ],
+            "Name": "1a4a364abeaa11e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/gatorade/4c"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/gatorade/4c/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "d672638abdef11e7@annalect.cloud"
+            ],
+            "Name": "d672638abdef11e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omg/wbi/dbm"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omg/wbi/dbm/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "3415f5e6bd7e11e7@annalect.cloud"
+            ],
+            "Name": "3415f5e6bd7e11e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/emea/pepsi/aipimport/moat"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/emea/pepsi/aipimport/moat/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "6514c711b8bf11e7@annalect.cloud"
+            ],
+            "Name": "6514c711b8bf11e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "PHD/hpi/yandex/russia"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/PHD/hpi/yandex/russia/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "f16c66a6b5dc11e7@annalect.cloud"
+            ],
+            "Name": "f16c66a6b5dc11e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "PHD/hpi/oath"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/PHD/hpi/oath/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "b096b430b5da11e7@annalect.cloud"
+            ],
+            "Name": "b096b430b5da11e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/emea/pepsi/aipimport/nielsen/dar"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/emea/pepsi/aipimport/nielsen/dar/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "c2042d4fb4cd11e7@annalect.cloud"
+            ],
+            "Name": "c2042d4fb4cd11e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "PHD/hpi/latam/facebook"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/PHD/hpi/latam/facebook/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "0be32066b40b11e7@annalect.cloud"
+            ],
+            "Name": "0be32066b40b11e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "annalect/data-science/aol"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/annalect/data-science/aol/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "4358ebe3b36011e7@annalect.cloud"
+            ],
+            "Name": "4358ebe3b36011e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "PHD/hpi/dbm"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/PHD/hpi/dcm/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "c66f738fb2ac11e7@annalect.cloud"
+            ],
+            "Name": "c66f738fb2ac11e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "PHD/hpi/amazon"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/PHD/hpi/amazon/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "a75ab8a3b05711e7@annalect.cloud"
+            ],
+            "Name": "a75ab8a3b05711e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/tru_bru/ias"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/tru_bru/ias/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "56c59f42aeba11e7@annalect.cloud"
+            ],
+            "Name": "56c59f42aeba11e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/gatorade/moat"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/gatorade/moat/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "5cce9794aeac11e7@annalect.cloud"
+            ],
+            "Name": "5cce9794aeac11e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/gatorade/moat"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/gatorade/moat/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "22fa4f35aeac11e7@annalect.cloud"
+            ],
+            "Name": "22fa4f35aeac11e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/gatorade/snapchat"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/gatorade/snapchat/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "a5a1b0cfaeab11e7@annalect.cloud"
+            ],
+            "Name": "a5a1b0cfaeab11e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/tru_bru/trueffect"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/tru_bru/trueffect/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "e68a4911a94111e7@annalect.cloud"
+            ],
+            "Name": "e68a4911a94111e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "PHD/hpi/turn"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/PHD/hpi/turn/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "0113650ca86111e7@annalect.cloud"
+            ],
+            "Name": "0113650ca86111e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/tru_bru/kochava"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/tru_bru/kochava/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "a8b97773a85e11e7@annalect.cloud"
+            ],
+            "Name": "a8b97773a85e11e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/tru_bru/sizmek"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/tru_bru/sizmek/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "3950c99c9efb11e7@annalect.cloud"
+            ],
+            "Name": "3950c99c9efb11e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/gatorade/omdp"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/gatorade/omdp/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "f33dd71c9ef811e7@annalect.cloud"
+            ],
+            "Name": "f33dd71c9ef811e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/tru_bru/pinterest"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/tru_bru/pinterest/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "d4402fb59ef711e7@annalect.cloud"
+            ],
+            "Name": "d4402fb59ef711e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/tru_bru/omdp"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/tru_bru/omdp/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "422109f39ca011e7@annalect.cloud"
+            ],
+            "Name": "422109f39ca011e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/uop/sitepartners/taykey"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/uop/sitepartners/taykey/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "419936009ca011e7@annalect.cloud"
+            ],
+            "Name": "419936009ca011e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/uop/sitepartners/pandora"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/uop/sitepartners/pandora/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "jazbz67fms5pa9rn@annalect.cloud"
+            ],
+            "Name": "jazbz67fms5pa9rn",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "annalect/google/caud/incoming"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/annalect/google/caud/incoming/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "c88696e8881511e7@annalect.cloud"
+            ],
+            "Name": "c88696e8881511e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "heartsscience/att/aipdatasources/unified/sources/linkedin/incoming"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/heartsscience/att/aipdatasources/unified/sources/linkedin/incoming/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "c68412b0881511e7@annalect.cloud"
+            ],
+            "Name": "c68412b0881511e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "heartsscience/att/aipdatasources/unified/sources/twitter/incoming"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/heartsscience/att/aipdatasources/unified/sources/twitter/incoming/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "c5c85d4c881511e7@annalect.cloud"
+            ],
+            "Name": "c5c85d4c881511e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "heartsscience/att/aipdatasources/unified/sources/instagram/incoming"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/heartsscience/att/aipdatasources/unified/sources/instagram/incoming/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "c50d57c0881511e7@annalect.cloud"
+            ],
+            "Name": "c50d57c0881511e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "heartsscience/att/aipdatasources/unified/sources/facebook/incoming"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/heartsscience/att/aipdatasources/unified/sources/facebook/incoming/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "34c8e362716211e7@annalect.cloud"
+            ],
+            "Name": "34c8e362716211e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/emea/pepsi/aipimport/dcm"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/emea/pepsi/aipimport/dcm/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "15e23ae3674311e7@annalect.cloud"
+            ],
+            "Name": "15e23ae3674311e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "PHD/hpi/ias"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/PHD/hpi/ias/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "c0619b995aaf11e7@annalect.cloud"
+            ],
+            "Name": "c0619b995aaf11e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "annalect/competitive/google/kantar_global/monthly/SWE"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/annalect/competitive/google/kantar_global/monthly/SWE/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "c00c3ed45aaf11e7@annalect.cloud"
+            ],
+            "Name": "c00c3ed45aaf11e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "annalect/competitive/google/kantar_global/monthly/MEX"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/annalect/competitive/google/kantar_global/monthly/MEX/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "bfb0a93d5aaf11e7@annalect.cloud"
+            ],
+            "Name": "bfb0a93d5aaf11e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "annalect/competitive/google/kantar_global/monthly/FRA"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/annalect/competitive/google/kantar_global/monthly/FRA/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "bef394475aaf11e7@annalect.cloud"
+            ],
+            "Name": "bef394475aaf11e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "annalect/competitive/google/kantar_global/monthly/DNK"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/annalect/competitive/google/kantar_global/monthly/DNK/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "ba9ad1665aaf11e7@annalect.cloud"
+            ],
+            "Name": "ba9ad1665aaf11e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "annalect/competitive/google/kantar_global/monthly/CAN"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/annalect/competitive/google/kantar_global/monthly/CAN/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "5c1ed0803ccd11e7@annalect.cloud"
+            ],
+            "Name": "5c1ed0803ccd11e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/wellsfargo/dcm"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/wellsfargo/dcm/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "b9420fd134f211e7@annalect.cloud"
+            ],
+            "Name": "b9420fd134f211e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/wellsfargo/digitalincubator"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/wellsfargo/digitalincubator/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "88c6d54f34ea11e7@annalect.cloud"
+            ],
+            "Name": "88c6d54f34ea11e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/wellsfargo/ias"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/wellsfargo/ias/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "56ee9d0234e911e7@annalect.cloud"
+            ],
+            "Name": "56ee9d0234e911e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/uop/ias"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/uop/ias/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "351dab7330fd11e7@annalect.cloud"
+            ],
+            "Name": "351dab7330fd11e7",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/wellsfargo/tubemogul"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/wellsfargo/tubemogul/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "omd.uop.programmatic@annalect.cloud"
+            ],
+            "Name": "omd.uop.programmatic",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/uop/programmatic"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/uop/programmatic/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "att.foursquare@annalect.cloud"
+            ],
+            "Name": "att.foursquare",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "heartsscience/att/aipdatasources/foursquare"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/heartsscience/att/foursquare/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "carskenshoo@annalect.cloud"
+            ],
+            "Name": "carskenshoo_Annalect_Cloud_email_rule",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "annalectcloudmail"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omg-agencies/resolutionmedia/cars/kenshoo/decrypted_data"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/resolutionmedia/cars/kenshoo/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "pepsidata@annalect.cloud"
+            ],
+            "Name": "omdpepsidata",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/pepsidata/Site_Received_Files_Pepsi_OMD_US"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/pepsidata/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "phd.hpi.spiceworks@annalect.cloud"
+            ],
+            "Name": "phd.hpi.spiceworks",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "PHD/hpi/spiceworks"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/PHD/hpi/spiceworks/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "omd.uop.sitepartners@annalect.cloud"
+            ],
+            "Name": "omd.uop.sitepartners",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/uop/sitepartners"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/uop/sitepartners/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "omd.uop.trueview@annalect.cloud"
+            ],
+            "Name": "omd.uop.trueview",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/uop/trueview"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/uop/trueview/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "aed70211119411e8@annalect.cloud"
+            ],
+            "Name": "omd.wf.trueview",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/wellsfargo/trueview"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/wellsfargo/trueview/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "ad23b76e11c711e8@annalect.cloud"
+            ],
+            "Name": "omd.wf.sitepartners",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omd/wellsfargo/sitepartners"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/omd/wellsfargo/sitepartners/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "att.publisher@annalect.cloud"
+            ],
+            "Name": "attpublisher",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "omg-agencies"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "heartsscience/att/aipdatasources/PublisherReporting/ecomm/incoming"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/heartsscience/att/PublisherReporting/ecomm/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "levisadobe@annalect.cloud"
+            ],
+            "Name": "levisadobe_Annalect_Cloud_email_rule",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "annalectcloudmail"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omg-agencies/resolutionmedia/levis/adobe/decrypted_data"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/resolutionmedia/levis/adobe/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "monsterkenshoo@annalect.cloud"
+            ],
+            "Name": "monsterkenshoo_Annalect_Cloud_email_rule",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "annalectcloudmail"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "omg-agencies/resolutionmedia/monster/kenshoo/decrypted_data"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "omg-agencies/resolutionmedia/monster/kenshoo/mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "attdata@annalect.cloud"
+            ],
+            "Name": "ATT_Annalect_Cloud_email_rule-copy",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "annalectcloudmail-att"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "decrypted_data"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "fileprefix",
+                        "HeaderValue": "Ecomm_Mobility_Wired_Atlas_Conversions"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "fileextension",
+                        "HeaderValue": "zip"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail-att",
+                        "ObjectKeyPrefix": "mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "ttddata@annalect.cloud"
+            ],
+            "Name": "TTD_Annalect_Cloud_email_rule",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "annalectcloudmail-ttd"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "decrypted_data"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "fileprefix",
+                        "HeaderValue": "TTD-3PD"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "fileextension",
+                        "HeaderValue": "tsv"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail-ttd",
+                        "ObjectKeyPrefix": "mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                ".annalect.cloud",
+                "iras@annalect.cloud",
+                "shashik@annalect.cloud",
+                "tclna@annalect.cloud"
+            ],
+            "Name": "annalect_cloud_email_rule",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucket",
+                        "HeaderValue": "annalectcloudmail"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "destbucketprefix",
+                        "HeaderValue": "decrypted_data"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "fileprefix",
+                        "HeaderValue": "downloaded_filename"
+                    }
+                },
+                {
+                    "AddHeaderAction": {
+                        "HeaderName": "fileextension",
+                        "HeaderValue": "tsv"
+                    }
+                },
+                {
+                    "S3Action": {
+                        "BucketName": "annalectcloudmail",
+                        "ObjectKeyPrefix": "mail"
+                    }
+                }
+            ],
+            "TlsPolicy": "Require",
+            "ScanEnabled": true
+        },
+        {
+            "Recipients": [
+                "annalect.awsapps.com"
+            ],
+            "Name": "m-8dfd98001c584deba464c660033b884f",
+            "Enabled": true,
+            "Actions": [
+                {
+                    "WorkmailAction": {
+                        "OrganizationArn": "arn:aws:workmail:us-east-1:661095214357:organization/m-8dfd98001c584deba464c660033b884f"
+                    }
+                }
+            ],
+            "TlsPolicy": "Optional",
+            "ScanEnabled": false
+        }
+    ],
+    "Metadata": {
+        "CreatedTimestamp": "2016-10-20T19:05:44.652Z",
+        "Name": "default-rule-set"
+    }
+}

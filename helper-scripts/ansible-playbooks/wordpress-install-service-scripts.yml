@@ -1,0 +1,16 @@
+---
+- hosts: tag_Application_wordpress
+  tasks:
+  - name: copy backup script
+    copy:
+      src: ../wordpress-scripts/backup_wp_site.sh
+      dest: /opt
+      mode: ug+x
+    become: yes
+
+  - name: copy backup restoration script
+    copy:
+      src: ../wordpress-scripts/restore_wp_backup.py
+      mode: ug+x
+      dest: /opt
+    become: yes

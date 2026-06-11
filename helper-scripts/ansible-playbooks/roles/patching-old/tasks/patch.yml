@@ -1,0 +1,156 @@
+---
+- name: set timestamp
+  shell: date +%Y%m%d-%H%M
+  register: timestamp
+
+- name: setting timestamp fact to be used later
+  set_fact:
+    timestamp: "{{ timestamp.stdout}}"
+
+- name: gathering facts about root volume
+  ec2_vol_facts:
+    region: "{{ ec2_region }}"
+    filters:
+      attachment.instance-id: "{{ ec2_id }}"
+      attachment.device: /dev/sda1
+  register: volumes
+  delegate_to: localhost
+
+- name: setting volume_id variable
+  set_fact:
+    volume_id: "{{ volumes['volumes'][0]['id'] }}"
+
+- name: setting facts to be used later
+  set_fact:
+    snapshot_name: PatchingSnapshot-{{ timestamp }}-VolumeId-{{ volume_id }}
+    file_name_prepatch: patching-{{ patch_name_identifier }}-1-pre_-{{ timestamp }}-{{ ec2_tag_Environment | default("") }}-{{ ec2_tag_Application | default("") }}-{{ ec2_tag_Layer }}-{{ ec2_private_ip_address | default("") }}.txt
+    file_name_postpatch: patching-{{ patch_name_identifier }}-2-post-{{ timestamp }}-{{ ec2_tag_Environment | default("") }}-{{ ec2_tag_Application | default("") }}-{{ ec2_tag_Layer }}-{{ ec2_private_ip_address | default("") }}.txt
+    file_name_summary: patching-{{ patch_name_identifier }}-3-summ-{{ timestamp }}-{{ ec2_tag_Environment | default() }}-{{ ec2_tag_Application | default() }}-{{ ec2_tag_Layer }}-{{ ec2_private_ip_address | default() }}.txt
+    file_name_diff: patching-{{ patch_name_identifier }}-4-diff-{{ timestamp }}-{{ ec2_tag_Environment | default() }}-{{ ec2_tag_Application | default() }}-{{ ec2_tag_Layer }}-{{ ec2_private_ip_address | default() }}.txt
+
+- name: copy prepatch script to destination path
+  copy:
+    src: "files/{{ pre_script }}"
+    dest: "{{ destination_path }}"
+    mode: u+x
+  become: yes
+  register: copypre
+
+- name: copy patch script to destination path
+  copy:
+    src: "files/{{ patch_script }}"
+    dest: "{{ destination_path }}"
+    mode: u+x
+  become: yes
+  register: copypatch
+
+- name: copy post-patch script
+  copy:
+    src: "files/{{ post_script }}"
+    dest: "{{ destination_path }}"
+    mode: u+x
+  become: yes
+  register: copypost
+
+- name: execute pre-script
+  shell: "{{ destination_path }}/{{ pre_script }}"
+  register: pre
+  become: yes
+
+- name: writing output of pre script to file
+  template: src=templates/patching-pre.j2 dest=tmp/{{ file_name_prepatch }}
+  delegate_to: localhost
+
+- name: copy output of pre script to destination_path
+  copy:
+    src: "tmp/{{ file_name_prepatch }}"
+    dest: "{{ destination_path }}"
+    mode: u+r
+  become: yes
+
+- debug: msg="*** remember to activate snapshot generation patching *** "
+#- name: generating snapshot
+#  ec2_snapshot:
+#    instance_id: "{{ ec2_id }}"
+#    device_name: "{{ ec2_root_device_name }}"
+#    region: "{{ ec2_region }}"
+#    description: "{{ snapshot_name }}"
+#    snapshot_tags:
+#      Name: "{{ snapshot_name }}"
+#      VolumeId: "{{ volume_id }}"
+#      Timestamp: "{{ timestamp }}"
+#      GeneratedWith: ansible
+#      OriginVolumeId: "{{ volume_id }}"
+#  delegate_to: localhost
+
+- debug: msg="*** remember to activate actual patching *** "
+#  - name: execute patch-script
+#    shell: "{{ destination_path }}/{{ patch_script }}"
+#    register: patch
+#    become: yes
+
+- name: execute post-script
+  shell: "{{ destination_path }}/{{ post_script }}"
+  register: post
+  become: yes
+
+- debug: msg="*** remember to activate server restart and wait to come online patching *** "
+## Send the reboot command
+#- name: send restart command
+#  shell: shutdown -r now
+#  become: yes
+#
+## This pause is mandatory, otherwise the existing control connection gets reused!
+#- name: waiting 30 second
+#  pause: seconds=30
+#
+#- name: Wait for connection (timeout 600s)
+#  wait_for_connection:
+##        delay: 60
+#    timeout: 600
+
+
+- name: writing output of post script to file
+  template: src=templates/patching-post.j2 dest=tmp/{{ file_name_postpatch }}
+  delegate_to: localhost
+
+- name: writing summary of patching to file
+  template: src=templates/patching-summary.j2 dest=tmp/{{ file_name_summary }}
+  delegate_to: localhost
+
+- name: writing diff of pre/post patching scripts outputs to file
+  shell: diff tmp/{{ file_name_prepatch }} tmp/{{ file_name_postpatch }} > tmp/{{ file_name_diff }} || true
+  delegate_to: localhost
+
+- name: copy output of post script to destination_path
+  copy:
+    src: "tmp/{{ file_name_postpatch }}"
+    dest: "{{ destination_path }}"
+    mode: u+r
+  become: yes
+
+- name: copy summary file to destination_path
+  copy:
+    src: "tmp/{{ file_name_summary }}"
+    dest: "{{ destination_path }}"
+    mode: u+r
+  become: yes
+
+- name: copy diff file to destination_path
+  copy:
+    src: "tmp/{{ file_name_diff }}"
+    dest: "{{ destination_path }}"
+    mode: u+r
+  become: yes
+
+- name: delete scripts
+  file:
+    path: "{{ destination_path }}/{{ item }}"
+    state: absent
+  become: yes
+  with_items:
+    - "{{ pre_script }}"
+    - "{{ patch_script }}"
+    - "{{ post_script }}"
+
+

@@ -1,0 +1,21 @@
+#Hardening and Instance setup scripts
+
+INSTANCE_ID=`/usr/bin/curl -s http://169.254.169.254/latest/meta-data/instance-id`
+
+#Setup instance: Generate Hostname, Set TimeZone, Configure NTP
+#Ensure to pass appropriate user-data for generating hostname
+if  [ -f /root/.pinstance_id ] && [ "$INSTANCE_ID" != $(cat /root/.pinstance_id) ]
+then
+        sudo aws s3 --region us-east-1 cp s3://Automationscripts/Hardening_Ubuntu/ubuntu1404-instance-setup.sh /root/hardening/instance-setup.sh
+        sudo sh /root/hardening/instance-setup.sh > /var/log/instance-setup.log 2>&1
+        sudo /usr/bin/curl -s http://169.254.169.254/latest/meta-data/instance-id > /root/.instance_id && sudo cp /root/.instance_id /root/.pinstance_id
+fi
+
+#Following scripts should be run manually on launching new EC2 Instance from hardened AMI
+#Ensure the hostname is generated before running host_domain_join
+
+#sudo sh /root/hardening/host_domain_join
+#sudo /root/hardening/DomainUserRestriction <project_name> <dev|qa|prod|mgmt>"
+#Install TrendMicro and BMC Agent as required
+
+exit 0

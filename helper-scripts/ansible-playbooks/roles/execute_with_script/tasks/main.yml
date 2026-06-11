@@ -1,0 +1,8 @@
+---
+- name: fail if not ran through select_hosts.py script
+  fail: msg="
+        ERROR - \n
+        Please run this playbook through select_host script. \n
+        Ex. python3 select_hosts.py -e Dev -P install_ssm_agent.yml. \n
+        Or set the variable `running_with_script = True`"
+  when: not running_with_script or running_with_script is not defined

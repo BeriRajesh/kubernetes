@@ -1,0 +1,8 @@
+---
+- name: Transfer the script
+  copy: src=../../../../wordpress-scripts/backup_wp_site.sh dest=/opt mode=0777
+  become: yes
+
+- name: Taking backup of site
+  shell: /opt/backup_wp_site.sh {{ wordpress_path }} {{ sitename }}
+  become: yes

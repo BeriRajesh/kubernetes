@@ -1,0 +1,229 @@
+---
+- name: try to disable sophos
+  shell: /etc/init.d/sav-protect stop
+  ignore_errors: true
+  become: yes
+
+- name: get major ubuntu version
+  shell: echo $(lsb_release -r) | cut -d" " -f2 | cut -d. -f1
+  become: yes
+  changed_when: false
+  register: ubuntu_major_version
+
+- name: get kernel version
+  shell: uname -r | sed -r 's/^(.*)-.*/\1/g'
+  become: yes
+  changed_when: false
+  register: kernel_version
+
+- name: setting `upgrade_distribution` fact to False if not set
+  set_fact:
+    upgrade_distribution: False
+  when: upgrade_distribution is not defined
+
+#- fail: msg="upgrade_distrubution == yes but no kernel_version specified"
+#  when:
+#    - upgrade_distrubution
+#    - kernel_version is not defined
+
+- name: (linux) setting `unhold_packages` fact to False if not set
+  set_fact:
+    unhold_packages: False
+  when: unhold_packages is not defined
+
+- name: (mesos-slave) setting `unhold_mesos_slave` to False if not set
+  set_fact:
+    unhold_mesos_slave: False
+  when: unhold_mesos_slave is not defined
+
+- name: (linux) unhold packages
+  ignore_errors: true
+  shell: apt-mark unhold linux-headers* && apt-mark unhold linux-image*
+  when: unhold_packages
+  become: yes
+  register: unhold_linux
+  failed_when:
+    - ubuntu_major_version.stdout == "12"
+    - unhold_linux.rc is defined
+    - unhold_linux.rc != 139
+
+- name: (mesos-slave) unhold packages
+  ignore_errors: true
+  shell: apt-mark unhold mesos
+  when:
+    - ec2_tag_ServiceGroup is defined
+    - ec2_tag_ServiceGroup == "mesos-slave"
+    - unhold_mesos_slave
+  become: yes
+  register: unhold_mesos
+  failed_when:
+    - ubuntu_major_version.stdout == "12"
+    - unhold_mesos.rc is defined
+    - unhold_mesos.rc != 139
+
+
+#
+# End conditional unhold packages section
+#############################################################
+
+- name: "Debug: upgrading distribution"
+  debug: var=upgrade_distribution
+
+- name: configuring pending packages
+  become: yes
+  shell: dpkg --configure -a
+  when: upgrade_distribution
+
+- name: dry-run apt-get dist-upgrade --dry-run
+  shell: apt-get update
+  become: yes
+  when:
+    - dry_run is defined
+    - dry_run
+
+- name: dry-run apt-get dist-upgrade --dry-run
+  shell: apt-get dist-upgrade --dry-run
+  become: yes
+  register: upgrade_result
+  when:
+    - dry_run is defined
+    - dry_run
+
+- name: try force-installing pending packages
+  become: yes
+  shell: apt-get -f install -y
+  when: upgrade_distribution
+
+- name: installing python-apt package
+  become: yes
+  shell: apt-get install python-apt -y
+  when: upgrade_distribution
+
+#- name: installing python-apt pip package
+#  shell: pip install python-apt
+#  become: yes
+#  when: upgrade_distribution
+
+#- name: upgrading apt packages
+#  become: yes
+#  shell: apt-get update
+#  ignore_errors: yes
+#  when: upgrade_distribution
+
+- name: do dist-upgrade
+  become: yes
+  apt:
+    upgrade: dist
+    update_cache: yes
+    autoremove: yes
+    force: yes
+  register: upgrade_result
+  ignore_errors: yes
+  when: upgrade_distribution
+
+- fail: msg="dist-upgrade failed miserably, please check!"
+  when:
+    - upgrade_distribution
+    - upgrade_result is failed
+
+- name: if dist-upgrade fails, delete /etc/apt/preferences
+  file:
+    path: /etc/apt/preferences
+    state: absent
+  when:
+    - upgrade_result is failed
+
+- name: do dist-upgrade (after necessary deletion of /etc/apt/preferences)
+  apt:
+    upgrade: dist
+    update_cache: yes
+    autoremove: yes
+    force: yes
+  register: upgrade_result2
+  when:
+    - upgrade_distribution
+    - upgrade_result is failed
+
+- fail: msg="dist-upgrade failed miserably, please check!"
+  when:
+    - upgrade_distribution
+    - upgrade_result is failed
+    - upgrade_result2 is failed
+
+- name: reboot instance
+  include_role:
+    name: reboot_instance
+  when: (upgrade_distribution and (upgrade_result is changed or upgrade_result2 is changed)) or (reboot is defined and reboot == "forced")
+
+#############################################################
+# Begin hold packages
+#
+
+- name: (linux) hold packages
+  shell: apt-mark hold linux-headers* && apt-mark hold linux-image* && apt-mark hold mongo*
+  become: yes
+  failed_when:
+    - ubuntu_major_version.stdout == "12"
+    - unhold_mesos.rc is defined
+    - unhold_mesos.rc != 139
+
+- name: (mesos-slave) hold packages
+  shell: apt-mark hold mesos
+  when:
+    - ec2_tag_ServiceGroup is defined
+    - ec2_tag_ServiceGroup == "mesos-slave"
+  become: yes
+  failed_when:
+    - ubuntu_major_version.stdout == "12"
+    - unhold_mesos.rc is defined
+    - unhold_mesos.rc != 139
+
+#
+# End hold packages
+#############################################################
+
+- name: write /etc/apt/preferences, ubuntu 12
+  copy:
+    backup: yes
+    dest: /etc/apt/preferences
+    content: |
+             Package: linux-virtual linux-headers-virtual linux-image-virtual linux-restricted-modules-virtual
+             Pin: version {{ kernel_version.stdout }}
+             Pin-Priority: 1001
+  when:
+    - ubuntu_major_version.stdout == "12"
+
+- name: write /etc/apt/preferences, ubuntu 14
+  copy:
+    backup: yes
+    dest: /etc/apt/preferences
+    content: |
+             Package: linux-generic linux-headers-generic linux-image-generic linux-restricted-modules-generic
+             Pin: version {{ kernel_version.stdout }}
+             Pin-Priority: 1001
+  when:
+    - ubuntu_major_version.stdout == "14"
+
+- name: write /etc/apt/preferences, ubuntu 16
+  copy:
+    backup: yes
+    dest: /etc/apt/preferences
+    content: |
+             Package: linux-aws linux-aws-headers linux-headers-aws linux-image-aws
+             Pin: version {{ kernel_version.stdout }}
+             Pin-Priority: 1001
+  when:
+    - ubuntu_major_version.stdout == "16"
+
+- name: write /root/adt-dist-upgrade-timestamp
+  copy:
+    backup: yes
+    dest: /root/adt-dist-upgraded-{{ ansible_date_time['iso8601'] | regex_replace('T', '_')  | regex_replace('[Z]', '') | regex_replace(':', '-') }}
+    content: "{{ upgrade_result.stdout | default('') }}"
+  when:
+    - upgrade_distribution
+
+- name: try to enable sophos
+  shell: /etc/init.d/sav-protect start
+  ignore_errors: true
+  become: yes

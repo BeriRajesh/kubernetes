@@ -1,0 +1,29 @@
+#!/bin/bash
+
+WP_ROOT={{ wordpress_path | default("NO DIR") }}
+
+
+# POST UPGRADE SCRIPT #
+chmod 444 "${WP_ROOT}"/.htaccess
+chmod 440 "${WP_ROOT}"/wp-config.php
+chown -R deploy "${WP_ROOT}"/wp-content/themes
+chown -R deploy "${WP_ROOT}"/wp-content/upgrade
+chown -R deploy "${WP_ROOT}"/wp-content/plugins
+
+
+# WP HARDEN SCRIPT #
+chown -R deploy:www-data "${WP_ROOT}"/*
+find "${WP_ROOT}" -type d -exec chmod 755 {} \;
+find "${WP_ROOT}" -type f -exec chmod 644 {} \;
+chmod 440 "${WP_ROOT}"/*.php
+chmod 444 "${WP_ROOT}"/.htaccess
+chown www-data "${WP_ROOT}"/wp-content/advanced-cache.php
+chown www-data "${WP_ROOT}"/wp-content/wp-cache-config.php
+chown www-data "${WP_ROOT}"/.htaccess
+chown www-data "${WP_ROOT}"/wp-config.php
+chown -R www-data "${WP_ROOT}"/wp-content/uploads
+chown -R www-data "${WP_ROOT}"/wp-content/cache
+chown -R www-data "${WP_ROOT}"/wp-content/wfcache
+chown -R www-data "${WP_ROOT}"/wp-content/wflogs
+chmod 2777 -R "${WP_ROOT}"/wp-content/wp-google-maps   > /dev/null
+chmod 2777 -R "${WP_ROOT}"/wp-content/uploads/wp-google-maps  > /dev/null

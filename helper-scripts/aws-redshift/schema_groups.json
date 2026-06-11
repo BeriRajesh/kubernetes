@@ -1,0 +1,378 @@
+{
+    "shared-omd.clf6bikxcquu.us-east-1.redshift.amazonaws.com": {
+        "omd": {
+            "cigna": {
+                "group_rw": "cigna_rw",
+                "group_ro": "cigna_ro"
+            },
+            "hasbro": {
+                "group_ro": "hasbro_ro",
+                "group_rw": "hasbro_rw"
+            },
+            "infiniti": {
+                "group_ro": "infiniti_ro",
+                "group_rw": "infiniti_rw"
+            },
+            "voya": {
+                "group_ro": "voya_ro",
+                "group_rw": "voya_rw"
+            },
+            "jcp": {
+                "group_ro": "jcp_ro",
+                "group_rw": "jcp_rw"
+            },
+            "showtime": {
+                "group_ro": "showtime_ro",
+                "group_rw": "showtime_rw"
+            },
+            "pfinancial": {
+                "group_ro": "pfinancial_ro",
+                "group_rw": "pfinancial_rw"
+            },
+            "wbros": {
+                "group_ro": "wbros_ro",
+                "group_rw": "wbros_rw"
+            },
+            "bmo": {
+                "group_ro": "bmo_ro",
+                "group_rw": "bmo_rw"
+            },
+            "cars_b": {
+                "group_ro": "cars_b_ro",
+                "group_rw": "cars_b_rw"
+            },
+            "essilor": {
+                "group_ro": "essilor_ro",
+                "group_rw": "essilor_rw"
+            },
+            "eli": {
+                "group_ro": "eli_ro",
+                "group_rw": "eli_rw"
+            },
+            "bacardi": {
+                "group_ro": "bacardi_ro",
+                "group_rw": "bacardi_rw"
+            },
+            "juul": {
+                "group_ro": "juul_ro",
+                "group_rw": "juul_rw"
+            }
+        }
+    },
+    "omd-intel-alteryx.clf6bikxcquu.us-east-1.redshift.amazonaws.com": {
+        "intel": {
+            "intel": {
+                "group_ro": "intel_ro",
+                "group_rw": "intel_rw"
+            },
+            "information_schema": {
+                "group_ro": "intel_ro",
+                "group_rw": "intel_rw"
+            }
+        }
+    },
+    "annalect-gatorade-aip.clf6bikxcquu.us-east-1.redshift.amazonaws.com": {
+        "gatorade": {
+            "gatorade": {
+                "group_ro": "gatorade_ro",
+                "group_rw": "gatorade_rw"
+            }
+        }
+    },
+    "jumpshot-clickstream.clf6bikxcquu.us-east-1.redshift.amazonaws.com": {
+        "dt": {
+            "data_science": {
+                "group_ro": "data_science_ro",
+                "group_rw": "data_science_rw"
+            },
+            "training": {
+                "group_ro": "training_read_only",
+                "group_rw": "training_read_write"
+            },
+            "journey": {
+                "group_ro": "journey_ro",
+                "group_rw": "journey_rw"
+            }
+        }
+    },
+    "dsdk-v0p1-annalect.clf6bikxcquu.us-east-1.redshift.amazonaws.com": {
+        "dsdk": {
+            "phd_public": {
+                "group_ro": "phd_public_ro",
+                "group_rw": "phd_public_rw"
+            },
+            "hearts_public": {
+                "group_ro": "hearts_public_ro",
+                "group_rw": "hearts_public_rw"
+            },
+            "journey": {
+                "group_ro": "journey_ro",
+                "group_rw": "journey_rw"
+            },
+            "jumpshot_data_science": {
+                "group_ro": "jumpshot_data_science_ro",
+                "group_rw": "jumpshot_data_science_rw"
+            },
+            "acxiom": {
+                "group_ro": "acxiom_ro_group",
+                "group_rw": "acxiom_analytic"
+            },
+            "jumpshot_us": {
+                "group_ro": "jumpshot_us_ro",
+                "group_rw": "jumpshot_us_rw"
+            },
+            "biopharm": {
+                "group_ro": "biopharm_ro",
+                "group_rw": "biopharm_rw"
+            },
+            "piq": {
+                "group_ro": "piq_ro",
+                "group_rw": "piq_rw"
+            },
+            "experian": {
+                "group_ro": "experian_ro_group",
+                "group_rw": "experian_rw"
+            },
+            "iri": {
+                "group_ro": "iri_ro",
+                "group_rw": "iri_rw"
+            },
+            "dsdk_v1": {
+                "group_ro": "dsdk_ro_group",
+                "group_rw": "dsdk_rw_group"
+            },
+            "dsdk_v0": {
+                "group_ro": "dsdk_ro_group",
+                "group_rw": "dsdk_rw_group"
+            },
+            "jumpshot_ca": {
+                "group_ro": "lotame_ca_ro",
+                "group_rw": "lotame_ca_rw"
+            },
+            "omd_public": {
+                "group_ro": "omd_public_ro",
+                "group_rw": "omd_public_rw"
+            },
+            "spectrum_placeiq": {
+                "group_ro": "spectrum_placeiq_ro",
+                "group_rw": "spectrum_placeiq_rw"
+            },
+            "spectrum_comscore": {
+                "group_ro": "spectrum_comscore_ro",
+                "group_rw": "public_rw"
+            },
+            "ads_public": {
+                "group_ro": "ads_public_ro",
+                "group_rw": "ads_public_rw"
+            }
+        }
+    },
+    "test-datatools.clf6bikxcquu.us-east-1.redshift.amazonaws.com": {
+        "ai_test": {
+            "ai_test": {
+                "group_ro": "ai_test_ro",
+                "group_rw": "ai_test_rw"
+            }
+        }
+    },
+    "adestg.clf6bikxcquu.us-east-1.redshift.amazonaws.com": {
+        "adestgdb": {
+            "pathmatics": {
+                "group_ro": "pathmatics_ro",
+                "group_rw": "pathmatics_rw"
+            },
+            "nielsen_import": {
+                "group_ro": "nielsen_import_ro",
+                "group_rw": "nielsen_import_rw"
+            }
+        }
+    },
+    "phd-shared-alteryx.clf6bikxcquu.us-east-1.redshift.amazonaws.com": {
+        "phd": {
+            "carnival": {
+                "group_ro": "carnival_ro",
+                "group_rw": "carnival_rw"
+            },
+            "phd_shared": {
+                "group_ro": "phd_shared_ro",
+                "group_rw": "phd_shared_rw"
+            },
+            "hsbc": {
+                "group_ro": "hsbc_ro",
+                "group_rw": "hsbc_rw"
+            },
+            "mailchimp": {
+                "group_ro": "mailchimp_ro",
+                "group_rw": "mailchimp_rw"
+            }
+        }
+    },
+    "omni-dev.c488xyottj77.us-east-1.rds.amazonaws.com": {
+        "omnibrief": {
+            "omnibrief": {
+                "group_ro": "omnibrief_ro",
+                "group_rw": "omnibrief_rw"
+            }
+        },
+        "omni": {
+            "omni": {
+                "group_ro": "omni_ro",
+                "group_rw": "omni_rw"
+            }
+        }
+    },
+    "audiencebuilder-dev.cluster-c488xyottj77.us-east-1.rds.amazonaws.com": {
+        "audience_builder": {
+            "b2binsights": {
+                "group_ro": "b2binsights_ro",
+                "group_rw": "b2binsights_rw"
+            },
+            "inspiration": {
+                "group_ro": "inspiration_ro",
+                "group_rw": "inspiration_rw"
+            }
+        }
+    },
+    "omd-daimler.clf6bikxcquu.us-east-1.redshift.amazonaws.com": {
+        "daimler": {
+            "daimler": {
+                "group_ro": "daimler_rw",
+                "group_rw": "daimler_ro"
+            }
+        }
+    },
+    "omni-qa.c488xyottj77.us-east-1.rds.amazonaws.com": {
+        "omnibrief": {
+            "omnibrief": {
+                "group_ro": "omnibrief_ro",
+                "group_rw": "omnibrief_rw"
+            }
+        },
+        "omni": {
+            "omni": {
+                "group_ro": "omni_ro",
+                "group_rw": "omni_rw"
+            }
+        }
+    },
+    "omni-stg.c488xyottj77.us-east-1.rds.amazonaws.com": {
+        "omnibrief": {
+            "omnibrief": {
+                "group_ro": "omnibrief_ro",
+                "group_rw": "omnibrief_rw"
+            }
+        },
+        "omni": {
+            "omni": {
+                "group_ro": "omni_ro",
+                "group_rw": "omni_rw"
+            }
+        }
+    },
+    "audiencebuilder-prod.cluster-c488xyottj77.us-east-1.rds.amazonaws.com": {
+        "audience_builder": {
+            "b2binsights": {
+                "group_ro": "b2binsights_ro",
+                "group_rw": "b2binsights_rw"
+            },
+            "abdb": {
+                "group_ro": "abdb_readers_ro_excl_credential_column",
+                "group_rw": "abdb_rw"
+            }
+        }
+    },
+    "audiencebuilder-qa.cluster-c488xyottj77.us-east-1.rds.amazonaws.com": {
+        "audience_builder": {
+            "b2binsights": {
+                "group_ro": "b2binsights_ro",
+                "group_rw": "b2binsights_rw"
+            },
+            "inspiration": {
+                "group_ro": "inspiration_ro",
+                "group_rw": "inspiration_rw"
+            },
+            "abdb": {
+                "group_ro": "abdb_ro_no_connection",
+                "group_rw": "abdb_rw"
+            }
+        }
+    },
+    "omd-statefarm-aip.clf6bikxcquu.us-east-1.redshift.amazonaws.com": {
+        "statefarm": {
+            "statefarm": {
+                "group_ro": "statefarm_ro",
+                "group_rw": "statefarm_rw"
+            }
+        }
+    },
+    "audiencebuilder-stg.cluster-c488xyottj77.us-east-1.rds.amazonaws.com": {
+        "audience_builder": {
+            "inspiration": {
+                "group_ro": "inspiration_ro",
+                "group_rw": "inspiration_rw"
+            }
+        }
+    },
+    "adeprodhd2.clf6bikxcquu.us-east-1.redshift.amazonaws.com": {
+        "omni_analytics": {
+            "public": {
+                "group_ro": "omni_analytics_rw",
+                "group_rw": "public_read_only"
+            }
+        }
+    },
+    "omd-wellsfargo-alteryx.clf6bikxcquu.us-east-1.redshift.amazonaws.com": {
+        "wellsfargo": {
+            "alteryx": {
+                "group_ro": "alteryx_ro",
+                "group_rw": "alteryx_rw"
+            }
+        }
+    },
+    "shared-api-qa.cluster-c488xyottj77.us-east-1.rds.amazonaws.com": {
+        "sharedapi": {
+            "public": {
+                "group_ro": "public_ro",
+                "group_rw": "public_rw"
+            }
+        },
+        "annlect_reportbuilder": {
+            "public": {
+                "group_ro": "annlect_reportbuilder_public_ro",
+                "group_rw": "annlect_reportbuilder_public_rw"
+            }
+        }
+    },
+    "shared-api-dev.cluster-c488xyottj77.us-east-1.rds.amazonaws.com": {
+        "annlect_reportbuilder": {
+            "public": {
+                "group_ro": "annlect_reportbuilder_public_ro",
+                "group_rw": "annlect_reportbuilder_public_rw"
+            }
+        }
+    },
+    "elde2.155409914190.us-east-1.redshift-serverless.amazonaws.com": {
+        "elde": {
+            "elde": {
+                "group_ro": "elde_ro",
+                "group_rw": "elde_rw"
+            }
+        }
+    },
+    "sso-qa.c488xyottj77.us-east-1.rds.amazonaws.com": {
+        "ssodb": {
+            "sso": {
+                "group_ro": "sso_ro",
+                "group_rw": "sso_rw"
+            }
+        }
+    },
+    "amd01.cluster-cgigaywldlyw.us-east-1.rds.amazonaws.com": {
+        "amd": {
+            "media_ops": {
+                "group_ro": "media_ops_ro",
+                "group_rw": "media_ops_rw"
+            }
+        }
+    }
+}

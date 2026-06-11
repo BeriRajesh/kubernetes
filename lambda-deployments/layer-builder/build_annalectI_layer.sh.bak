@@ -1,0 +1,29 @@
+#!/bin/bash
+set -ex
+
+# pyodb-complete was built and adapted from
+# https://medium.com/faun/aws-lambda-microsoft-sql-server-how-to-66c5f9d275ed
+
+LAMBDA_NAME=mssql-test
+LAYER_NAME=mssql-layer
+ZIP_NAME=layer.zip
+
+if [ -f "${ZIP_NAME}" ]; then rm "${ZIP_NAME}"; fi
+
+cd pylect-infra-build/
+rm * -r
+pip install git+ssh://git@bitbucket.org/annalect/pylect-infra.git@v.1.x --upgrade -t python/lib/python3.7/site-packages/
+cd ..
+
+echo "Adding our .py files"
+
+rsync -iva --exclude "*.zip" odbc-build/ pylect-infra-build
+cd pylect-infra-build
+zip -r9 ../$ZIP_NAME .
+cd ..
+
+# exit 0
+echo "Updating Layer"
+set -x
+# aws lambda update-function-code --function-name $LAMBDA_NAME --zip-file fileb://${ZIP_NAME} --cli-connect-timeout 6000
+aws lambda publish-layer-version --layer-name annalectI --description "Annalect Layer I: mssql, pylect-infra" --zip-file fileb://${ZIP_NAME} --compatible-runtimes "python3.7" --cli-connect-timeout 6000
