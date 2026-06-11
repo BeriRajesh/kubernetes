@@ -1,6 +1,0 @@
----
-- name: smbd running
-  service:
-    name: smbd
-    state: started
-

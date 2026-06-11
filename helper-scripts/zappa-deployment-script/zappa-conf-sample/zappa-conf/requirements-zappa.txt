@@ -1,2 +1,0 @@
-zappa
-aws-xray-sdk

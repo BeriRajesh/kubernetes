@@ -1,9 +1,0 @@
-*.retry
-roles/Datadog.datadog/*
-keys/
-keys
-.idea
-old-playbooks/patch.yml.tar.gz
-tmp/
-old-playbooks/
-roles/ansible-aws-ssm/

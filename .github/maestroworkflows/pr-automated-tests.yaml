@@ -1,0 +1,57 @@
+name: Run tests on PR
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - qa
+      - stg
+      - prod
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    env:
+      SQLALCHEMY_DATABASE_URI: "postgresql://postgres:postgres@localhost:5432/maestro_apikey"
+    defaults:
+      run:
+        working-directory: ./src
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_DB: maestro_apikey
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    steps:
+      - uses: actions/checkout@v4
+      - uses: webfactory/ssh-agent@v0.4.1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+          cache: 'pip'
+      - name: Install dependencies
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan bitbucket.org >>~/.ssh/known_hosts
+          python -m pip install --upgrade pip
+          pip install -r ../requirements.txt
+      - name: Set up DB
+        run: |
+          psql -U test_user -d maestro_apikey -c "CREATE SCHEMA IF NOT EXISTS maestro_apikey"
+          alembic upgrade head
+      - name: Test with pytest and coverage
+        run: |
+          coverage run --source app -m pytest tests
+          coverage report -m

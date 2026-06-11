@@ -1,8 +1,0 @@
-nielsen/downloaded-files/
-settings-pycharm-*
-.idea
-.vscode
-ansible-playbooks/crashes/
-aws-general/tmp/
-remotes-us.code-workspace
-.pylintrc

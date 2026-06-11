@@ -1,7 +1,0 @@
-redshift_conf.py
-executed-queries
-settings-pycharm-*
-cycle_command_groups/amazon-redshift-utils
-cycle_command_groups/01_create_users.sql
-.ignored
-venv

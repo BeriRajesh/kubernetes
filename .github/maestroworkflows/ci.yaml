@@ -1,0 +1,188 @@
+name: Build and Deploy to EKS
+
+on:
+  push:
+    branches:
+      - "develop"
+
+jobs:
+  Build:
+    runs-on: codebuild-github-runner-${{ github.run_id }}-${{ github.run_attempt }}
+    permissions:
+      id-token: write
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: arn:aws:iam::661095214357:role/admin/ann01tio-infra-github-admin-role
+          aws-region: us-east-1
+          role-session-name: github-actions
+
+      - name: Login to ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Extract SSH private key
+        run: echo "${{ secrets.BITBUCKET_KEY }}" > id_rsa
+      
+      - name: Setting up SSH
+        env:
+          BITBUCKET_SSH_KEY: ${{ secrets.BITBUCKET_KEY }}
+        run: |
+          docker --version
+          mkdir -p ~/.ssh
+          echo "$BITBUCKET_SSH_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan bitbucket.org >> ~/.ssh/known_hosts
+
+      - name: checkout bitbucket devops/deployment-scripts
+        run: |
+          echo "checkout bitbucket devops/deployment-scripts:"
+          git clone --depth=1 -b release git@bitbucket.org:annalect/devops.git
+      
+      - name: Maestro API
+        env:
+            REGISTRY1: 661095214357.dkr.ecr.us-east-1.amazonaws.com
+            REPOSITORY1: annalect/maestro-api
+            IMAGE_TAG1: "latest-develop"
+        run: |
+          git archive --remote=git@bitbucket.org:annalect/devops.git release -- deployment-scripts/secrets-entrypointv5.sh | tar -xO > secrets-entrypointv5.sh
+          chmod +x secrets-entrypointv5.sh
+          echo ENV AWS_REGION=us-east-1 >> Dockerfile
+          echo ENV BUILD_ENV=mixed >> Dockerfile
+          echo ENV RUN_SECRET_ENTRYPOINT=true >> Dockerfile
+          echo ENV APP_NAME=maestro-api >> Dockerfile
+          echo ENV CONFIG_PATH=/serveroverride.cfg >> Dockerfile
+          echo ENV SERVEROVERRIDE_KEY=ssm >> Dockerfile
+          echo ENV DOCKER_CMD=pythonrun_server.py >> Dockerfile
+          echo "### DEVOPS CODE INJECTION" >> Dockerfile
+          echo 'COPY secrets-entrypointv5.sh /' >> Dockerfile
+          echo 'RUN chmod +x /secrets-entrypointv5.sh' >> Dockerfile
+          echo 'ENTRYPOINT ["/secrets-entrypointv5.sh"]' >> Dockerfile
+          sed "58d" Dockerfile
+          cat Dockerfile
+          docker build --build-arg SSH_PRIVATE_KEY="$(cat id_rsa)" -t $REGISTRY1/$REPOSITORY1:$IMAGE_TAG1 .
+          docker push $REGISTRY1/$REPOSITORY1:$IMAGE_TAG1
+  
+  Deploy:
+    runs-on: codebuild-github-runner-${{ github.run_id }}-${{ github.run_attempt }}
+    needs: Build
+    permissions:
+      id-token: write
+      contents: write
+
+    steps:
+      
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: arn:aws:iam::661095214357:role/admin/ann01tio-infra-github-admin-role
+          aws-region: us-east-1
+          role-session-name: github-actions
+
+      - name: Login to ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Extract SSH private key
+        run: echo "${{ secrets.BITBUCKET_KEY }}" > id_rsa
+      
+      - name: Setting up SSH
+        env:
+          BITBUCKET_SSH_KEY: ${{ secrets.BITBUCKET_KEY }}
+        run: |
+          docker --version
+          mkdir -p ~/.ssh
+          echo "$BITBUCKET_SSH_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan bitbucket.org >> ~/.ssh/known_hosts
+
+      - name: Celery
+        env:
+              REGISTRY2: 661095214357.dkr.ecr.us-east-1.amazonaws.com
+              REPOSITORY2: annalect/maestro-celery
+              IMAGE_TAG2: "latest-develop"
+        run: |
+            sed -i 's|^CMD \[ "python", "run_server.py" \]|CMD \[ "celery", "-A", "run_server.celery", "worker", "-l", "info" \]|' Dockerfile
+            cat Dockerfile
+            docker build --build-arg SSH_PRIVATE_KEY="$(cat id_rsa)" -t $REGISTRY2/$REPOSITORY2:$IMAGE_TAG2 .
+            docker push $REGISTRY2/$REPOSITORY2:$IMAGE_TAG2
+
+      - name: Sidecar
+        env:
+              REGISTRY3: 661095214357.dkr.ecr.us-east-1.amazonaws.com
+              REPOSITORY3: annalect/maestro-sidecar-api
+              IMAGE_TAG3: "latest-develop"
+        run: |
+            git clone -b rb/githubactions git@bitbucket.org:annalect/api-key-sidecar-service.git
+            cd api-key-sidecar-service
+            git archive --remote=git@bitbucket.org:annalect/devops.git release -- deployment-scripts/secrets-entrypointv5.sh | tar -xO > secrets-entrypointv5.sh
+            chmod +x secrets-entrypointv5.sh
+            echo "Injecting content to Dockerfile"
+            echo "" >> Dockerfile
+            echo ENV AWS_REGION=us-east-1 >> Dockerfile
+            echo ENV BUILD_ENV=dev >> Dockerfile
+            echo ENV RUN_SECRET_ENTRYPOINT=true >> Dockerfile
+            echo ENV APP_NAME=maestro-apikey >> Dockerfile
+            echo ENV CONFIG_PATH=/serveroverride.cfg >> Dockerfile
+            echo ENV SERVEROVERRIDE_KEY=ssm >> Dockerfile
+            echo "### DEVOPS CODE INJECTION" >> Dockerfile
+            echo 'COPY secrets-entrypointv5.sh /' >> Dockerfile
+            echo 'RUN chmod +x /secrets-entrypointv5.sh' >> Dockerfile
+            echo 'ENTRYPOINT ["/secrets-entrypointv5.sh"]' >> Dockerfile
+            sed "59d" Dockerfile
+            docker build --build-arg SSH_PRIVATE_KEY="$(cat ~/.ssh/id_rsa)" -t $REGISTRY3/$REPOSITORY3:$IMAGE_TAG3 .
+            docker push $REGISTRY3/$REPOSITORY3:$IMAGE_TAG3
+            
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v2.0
+        with:
+            version: 'v1.24.0'
+        id: install
+        
+      - name: Assume role & Deploy EKS
+        id: assume-role
+        run: |
+            # Assume the role in ann08 account from ann01 account
+            role=$(aws sts assume-role --role-arn "arn:aws:iam::408764662748:role/service-role/ann08dev-aue1-github-runner-service-role" --role-session-name "deployer-session" --duration-seconds 3600)
+            
+            # Extract the temporary security credentials using jq
+            KEY=$(echo "$role" | jq -r ".Credentials.AccessKeyId")
+            SECRET=$(echo "$role" | jq -r ".Credentials.SecretAccessKey")
+            TOKEN=$(echo "$role" | jq -r ".Credentials.SessionToken")
+            
+            # Export the credentials as environment variables
+            export AWS_ACCESS_KEY_ID="$KEY"
+            export AWS_SECRET_ACCESS_KEY="$SECRET"
+            export AWS_SESSION_TOKEN="$TOKEN"
+            
+            # Verify the assumed role identity
+            aws sts get-caller-identity
+
+            #Deploy 
+            aws eks update-kubeconfig --name dev01 --region us-east-1
+            kubectl config current-context
+            curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 > get_helm.sh
+            chmod 700 get_helm.sh
+            ./get_helm.sh
+            helm upgrade --install maestro maestro-helm-charts --namespace maestro --create-namespace
